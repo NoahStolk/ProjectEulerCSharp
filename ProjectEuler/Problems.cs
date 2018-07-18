@@ -130,7 +130,7 @@ namespace ProjectEuler
 
 			while (!found)
 			{
-				if (MathUtils.IsPrime(number))
+				if (number.IsPrime())
 					primes++;
 
 				if (primes == 10001)
@@ -250,7 +250,7 @@ namespace ProjectEuler
 			while (f < 11)
 			{
 				int y = x;
-				if (MathUtils.IsTruncatablePrime(x))
+				if (x.IsTruncatablePrime())
 				{
 					f++;
 					t += x;
@@ -271,7 +271,7 @@ namespace ProjectEuler
 				//	continue;
 
 				divisors[0] = divisors[1];
-				divisors[1] = MathUtils.GetPositiveDivisors(i + 1);
+				divisors[1] = (i + 1).GetPositiveDivisors();
 
 				if (divisors[0] == divisors[1])
 				{
