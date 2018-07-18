@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace ProjectEuler
 {
@@ -7,13 +8,47 @@ namespace ProjectEuler
 	{
 		public static void Main(string[] args)
 		{
-			Stopwatch stopwatch = new Stopwatch();
-			stopwatch.Start();
+			WriteLineColor("Project Euler - C#", ConsoleColor.Green);
+			Console.WriteLine();
 
-			Console.WriteLine(Problems.Problem179((int)Math.Pow(10, 5)));
+			for (; ; )
+			{
+				WriteColor("Enter a problem to solve: ", ConsoleColor.Yellow);
+				string problem = Console.ReadLine();
 
-			stopwatch.Stop();
-			Console.WriteLine($"Time elapsed: {stopwatch.Elapsed}");
+				Type type = typeof(Problems);
+				MethodInfo method = type.GetMethod($"Problem{problem}");
+				Problems problems = new Problems();
+
+				Console.WriteLine();
+
+				try
+				{
+					Stopwatch stopwatch = new Stopwatch();
+					stopwatch.Start();
+					WriteLineColor(method.Invoke(problems, null), ConsoleColor.White);
+					stopwatch.Stop();
+					WriteLineColor($"Execution took: {stopwatch.Elapsed}", ConsoleColor.Cyan);
+				}
+				catch (Exception)
+				{
+					WriteLineColor("Problem not found.", ConsoleColor.Red);
+				}
+
+				Console.WriteLine();
+			}
+		}
+
+		public static void WriteLineColor(object message, ConsoleColor color)
+		{
+			Console.ForegroundColor = color;
+			Console.WriteLine(message);
+		}
+
+		public static void WriteColor(object message, ConsoleColor color)
+		{
+			Console.ForegroundColor = color;
+			Console.Write(message);
 		}
 	}
 }
