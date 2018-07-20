@@ -243,22 +243,21 @@ namespace ProjectEuler
 
 		public static int Problem37()
 		{
-			int x = 1;
-			int f = 0;
-			int t = 0;
+			int sum = 0;
+			int primes = 0;
 
-			while (f < 11)
+			int j = 11;
+			while (primes < 11)
 			{
-				int y = x;
-				if (x.IsTruncatablePrime())
+				if (j.IsTruncatablePrime())
 				{
-					f++;
-					t += x;
+					primes++;
+					sum += j;
 				}
-				x += 2;
+				j += 2;
 			}
 
-			return t;
+			return sum;
 		}
 
 		public static int Problem179(int limit)

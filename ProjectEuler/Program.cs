@@ -44,7 +44,7 @@ namespace ProjectEuler
 					catch (Exception ex)
 					{
 						WriteLineColor("FATAL ERROR", ConsoleColor.Red);
-						WriteLineColor(ex.Message, ConsoleColor.Red);
+						WriteLineColor(ex.GetAllInnerExceptionMessages("\n===\n"), ConsoleColor.Red);
 					}
 				}
 
