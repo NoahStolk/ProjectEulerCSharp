@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using XtendedNET.Extensions;
-using XtendedNET.Utils;
 
 namespace ProjectEuler
 {
@@ -207,7 +206,7 @@ namespace ProjectEuler
 		public static int Problem18()
 		{
 			const int triangleSize = 15;
-			
+
 			int[][] matrix =
 			{
 				new int[] { 75 },
