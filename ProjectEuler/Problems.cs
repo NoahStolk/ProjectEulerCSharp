@@ -9,7 +9,7 @@ namespace ProjectEuler
 		public static int Problem1()
 		{
 			int result = 0;
-			for (int i = 1; i < 1000; i++)
+			for (int i = 3; i < 1000; i++)
 				if (i % 3 == 0 || i % 5 == 0)
 					result += i;
 			return result;
@@ -230,6 +230,40 @@ namespace ProjectEuler
 			return matrix[0][0];
 		}
 
+		public static int Problem23()
+		{
+			int max = 28124;
+
+			List<int> abundants = new List<int>();
+
+			int result = 0;
+			for (int i = 1; i < max / 2; i += 2)
+				if (i < i.GetProperDivisorSum())
+					abundants.Add(i);
+
+			for (int i = 1; i < max; i += 2)
+			{
+				if (i % 10 == 0)
+					continue;
+
+				bool sum = true;
+				for (int j = 0; j < abundants.Count; j++)
+				{
+					if (abundants[j] >= i / 2)
+						break;
+					if (abundants.Contains(i - abundants[j]))
+					{
+						sum = false;
+						break;
+					}
+				}
+
+				if (sum)
+					result += i;
+			}
+			return result;
+		}
+
 		public static int Problem37()
 		{
 			int sum = 0;
@@ -371,24 +405,21 @@ namespace ProjectEuler
 			return matrix[0][0];
 		}
 
-		public static int Problem179(int limit)
+		public static int Problem179()
 		{
+			int limit = (int)Math.Pow(10, 7);
 			int result = 0;
+
 			int[] divisors = new int[2] { 0, 2 };
 			for (int i = 2; i < limit; i++)
 			{
-				//if (Math.Sqrt(i) == (int)Math.Floor((double)i))
-				//	continue;
-
 				divisors[0] = divisors[1];
-				divisors[1] = (i + 1).GetPositiveDivisors();
+				divisors[1] = (i + 1).GetDivisorAmount();
 
 				if (divisors[0] == divisors[1])
-				{
 					result++;
-					//Console.WriteLine(divisors[0]);
-				}
 			}
+
 			return result;
 		}
 	}
