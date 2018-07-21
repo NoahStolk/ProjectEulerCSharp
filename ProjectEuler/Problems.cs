@@ -92,47 +92,37 @@ namespace ProjectEuler
 			}
 		}
 
-		public static double Problem6()
+		public static int Problem6()
 		{
 			int x = 100;
-			double a = 0;
-			double b = 0;
+			int a = 0;
+			int b = 0;
 
 			for (int i = 1; i <= x; i++)
 			{
-				a += Math.Pow(i, 2);
+				a += (int)Math.Pow(i, 2);
 				b += i;
 			}
 
-			b = Math.Pow(b, 2);
+			b = (int)Math.Pow(b, 2);
 
 			return b - a;
 		}
 
 		public static int Problem7()
 		{
-			bool found = false;
-			int number = 2;
-			int primes = 0;
-
-			while (!found)
+			int primes = 1;
+			int number = 3;
+			for (; ; )
 			{
 				if (number.IsPrime())
 					primes++;
 
 				if (primes == 10001)
-					found = true;
+					return number;
 
-				if (!found)
-				{
-					if (number % 2 == 0)
-						number++;
-					else
-						number += 2;
-				}
+				number += 2;
 			}
-
-			return number;
 		}
 
 		public static long Problem8()
