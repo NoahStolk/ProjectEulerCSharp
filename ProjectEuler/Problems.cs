@@ -35,10 +35,10 @@ namespace ProjectEuler
 			return d;
 		}
 
-		public static double Problem3()
+		public static int Problem3()
 		{
-			double a = 600851475143;
-			double b = 2;
+			long a = 600851475143;
+			int b = 2;
 
 			while (a > 1)
 			{
