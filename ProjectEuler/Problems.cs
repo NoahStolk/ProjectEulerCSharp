@@ -73,35 +73,23 @@ namespace ProjectEuler
 
 		public static long Problem5()
 		{
-			long intCount = 20;
-			long highest = 0;
-			long x = 20;
-			long z = 0;
-			bool found = false;
-
-			while (!found)
+			int intCount = 20;
+			
+			long x = intCount;
+			for (; ; )
 			{
-				for (int y = 1; y < 21; y++)
+				Restart:
+				for (int y = 1; y <= intCount; y++)
 				{
-					if (x % y == 0)
-						z++;
+					if (x % y != 0)
+					{
+						x += intCount;
+						goto Restart;
+					}
 				}
 
-				if (z > highest)
-					highest = z;
-
-				if (z >= intCount)
-				{
-					found = true;
-				}
-				else
-				{
-					z = 0;
-					x += 20;
-				}
+				return x;
 			}
-
-			return x;
 		}
 
 		public static double Problem6()
