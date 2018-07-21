@@ -161,40 +161,32 @@ namespace ProjectEuler
 			return ans;
 		}
 
-		public static double Problem10()
+		public static long Problem10()
 		{
-			List<double> primes = new List<double>();
-			double total = 2;
+			int[] primes = new int[256];
+			int primeIndex = 0;
+			long total = -1;
 
-			for (double i = 3; i < 2000001; i += 2)
+			for (int i = 3; i < 2000000; i += 2)
 			{
-				bool c = false;
-				foreach (double p in primes)
+				RestartOuter:
+				for (int j = 0; j < primeIndex; j++)
 				{
-					if (i % p == 0)
-						c = true;
+					if (i % primes[j] == 0)
+					{
+						i += 2;
+						goto RestartOuter;
+					}
 				}
 
-				if (c)
-					continue;
-
-				double z = 0;
-				for (double j = 1; j < Math.Ceiling(Math.Sqrt(i)); j++)
-				{
-					if (i % j == 0)
-						z++;
-					if (i % Math.Ceiling(i / j) == 0)
-						z++;
-				}
-
-				if (Math.Sqrt(i) == Math.Floor(Math.Sqrt(i)))
-					z++;
-
-				if (z == 2)
+				if (i.IsPrime())
 				{
 					total += i;
-					if (i < 1000)
-						primes.Add(i);
+					if (primeIndex < primes.Length)
+					{
+						primes[primeIndex] = i;
+						primeIndex++;
+					}
 				}
 			}
 
