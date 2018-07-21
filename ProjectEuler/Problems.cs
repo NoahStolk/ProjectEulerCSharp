@@ -145,17 +145,17 @@ namespace ProjectEuler
 			return highest;
 		}
 
-		public static double Problem9()
+		public static long Problem9()
 		{
 			double a = 0;
-			double num = 1000;
-			double ans = 0;
+			int num = 1000;
+			long ans = 0;
 
 			for (int i = 1; i < num / 2; i++)
 			{
 				a = (Math.Pow(num, 2) / 2 - num * i) / (num - i);
 				if (a % 1 == 0)
-					ans = a * i * (num - a - i);
+					ans = (long)(a * i * (num - a - i));
 			}
 
 			return ans;
