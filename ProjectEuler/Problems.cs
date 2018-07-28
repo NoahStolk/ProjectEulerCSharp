@@ -389,6 +389,40 @@ namespace ProjectEuler
 			return total.Substring(0, 10);
 		}
 
+		public static int Problem14()
+		{
+			int highestX = 0;
+			int highestZ = 0;
+
+			for (int x = 1; x < 1000001; x++)
+			{
+				double y = x;
+				int z = 0;
+
+				while (y > 1)
+				{
+					if (y % 2 == 0)
+					{
+						y *= 0.5;
+					}
+					else
+					{
+						y *= 3;
+						y++;
+					}
+					z++;
+				}
+
+				if (z > highestZ)
+				{
+					highestZ = z;
+					highestX = x;
+				}
+			}
+
+			return highestX;
+		}
+
 		public static int Problem18()
 		{
 			const int triangleSize = 15;
