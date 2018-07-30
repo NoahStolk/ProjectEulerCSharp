@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using XtendedNET.Extensions;
 
@@ -138,7 +139,7 @@ namespace ProjectEuler
 			{
 				long product = 1;
 				for (int j = 0; j < adjacents; j++)
-					product *= int.Parse(digits[i + j].ToString());
+					product *= digits.DigitAt(i + j);
 				if (highest < product)
 					highest = product;
 			}
@@ -265,7 +266,7 @@ namespace ProjectEuler
 			int n = 2;
 			int triangle = 3;
 
-			for(; ; )
+			for (; ; )
 			{
 				if (triangle.GetDivisorAmount() > 500)
 					break;
@@ -605,43 +606,193 @@ namespace ProjectEuler
 			return result;
 		}
 
-		//public static int Problem24()
-		//{
-		//	int[] digits = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		public static string Problem24()
+		{
+			string digits = "0123456789";
 
-		//	int i = 0;
-		//	foreach (int permutation in digits.GetPermutations(""))
-		//	{
-		//		i++;
-		//		if (i == Math.Pow(10, 6) + 1)
-		//			return permutation;
-		//	}
+			int i = 0;
+			foreach (string permutation in digits.GetPermutations(""))
+			{
+				i++;
+				if (i == Math.Pow(10, 6))
+					return permutation;
+			}
 
-		//	return 0;
-		//}
+			return "";
+		}
 
-		/// <summary>
-		/// unsolved
-		/// </summary>
-		/// <returns></returns>
 		public static int Problem25()
 		{
-			int a = 0;
-			int b = 1;
-			int c = 0;
+			string a = "0";
+			string b = "1";
+			string c = "0";
 			int d = 1;
 
-			while (c.ToString().Length < 1000)
+			while (c.Length < 1000)
 			{
-				d += 1;
-				c = a + b;
+				d++;
+				c = a.NumeralAddition(b);
 				a = b;
 				b = c;
 			}
 
 			return d;
 		}
+
+		public static int Problem28()
+		{
+			int grid = 1001;
+			int diagonals = grid * 2 - 1;
+
+			int sum = 1;
+			int multiplier = 2;
+			int i = 0;
+			int total = 0;
+
+			while (i < diagonals)
+			{
+				total += sum;
+				sum += multiplier;
+				i++;
+				if (i % 4 == 0)
+					multiplier += 2;
+			}
+
+			return total;
+		}
+
+		public static int Problem29()
+		{
+			List<double> sequence = new List<double>();
+
+			for (int x = 2; x < 101; x++)
+				for (int y = 2; y < 101; y++)
+					sequence.Add(Math.Pow(x, y));
+
+			sequence = sequence.Distinct().ToList();
+
+			return sequence.Count;
+		}
+
+		public static int Problem30()
+		{
+			int t = 0;
+
+			for (int x = 10; x < 999999; x++)
+			{
+				int sum = 0;
+				for (int y = 0; y < x.ToString().Length; y++)
+					sum += (int)Math.Pow(x.DigitAt(y), 5);
+				if (x == sum)
+					t += x;
+			}
+
+			return t;
+		}
+
+		public static int Problem31()
+		{
+			int a = 200;
+			int b = 100;
+			int c = 50;
+			int d = 20;
+			int e = 10;
+			int f = 5;
+			int g = 2;
+			int h = 1;
+			int count = 0;
+
+			for (int i = 1; i > -1; i--)
+				for (int j = 2 - i * 2; j > -1; j--)
+					for (int k = 4 - i * 4 - j * 2; k > -1; k--)
+						for (double l = 10 - i * 10 - j * 5 - Math.Floor(k * 2.5); l > -1; l--)
+							for (double m = 20 - i * 20 - j * 10 - k * 5 - l * 2; m > -1; m--)
+								for (double n = 40 - i * 40 - j * 20 - k * 10 - l * 4 - m * 2; n > -1; n--)
+									for (double o = 100 - i * 100 - j * 50 - k * 25 - l * 10 - m * 5 - Math.Floor(n * 2.5); o > -1; o--)
+										for (double p = 200 - i * 200 - j * 100 - k * 50 - l * 20 - m * 10 - n * 5 - o * 2; p > -1; p--)
+											if (a * i + b * j + c * k + d * l + e * m + f * n + g * o + h * p == 200)
+												count++;
+
+			return count;
+		}
+
+		public static int Problem32()
+		{
+			List<int> answers = new List<int>();
+
+			for (int i = 123456789; i < 987654321 / 2; i += 9)
+			{
+				if (!i.IsPandigital())
+					continue;
+
+				string x = i.ToString();
+
+				int mul = int.Parse(x.Substring(5));
+				if (int.Parse(x.Substring(0, 2)) * int.Parse(x.Substring(2, 3)) == mul
+				 || int.Parse(x.Substring(0, 3)) * int.Parse(x.Substring(3, 2)) == mul
+				 || int.Parse(x.Substring(0, 1)) * int.Parse(x.Substring(1, 4)) == mul
+				 || int.Parse(x.Substring(0, 4)) * int.Parse(x.Substring(4, 1)) == mul)
+					answers.Add(mul);
+			}
+
+			answers = answers.Distinct().ToList();
+
+			int total = 0;
+			foreach (int i in answers)
+				total += i;
+			return total;
+		}
+
+		public static double Problem33()
+		{
+			List<double> fractions = new List<double>();
+
+			for (double i = 10; i < 100; i++)
+			{
+				if (i % 10 == 0)
+					continue;
+
+				for (double j = 10; j < i; j++)
+				{
+					double fraction1 = j / i;
+					double fraction2 = 0;
+
+					if (j.DigitAt(0) == i.DigitAt(0))
+						fraction2 = j.DigitAt(1) / i.DigitAt(1);
+					else if (j.DigitAt(1) == i.DigitAt(0))
+						fraction2 = j.DigitAt(0) / i.DigitAt(1);
+					else if (j.DigitAt(0) == i.DigitAt(1))
+						fraction2 = j.DigitAt(1) / i.DigitAt(0);
+					else if (j.DigitAt(1) == i.DigitAt(1))
+						fraction2 = j.DigitAt(0) / i.DigitAt(0);
 		
+					if (fraction1 == fraction2)
+						fractions.Add(fraction1);
+				}
+			}
+
+			double final = 1;
+			foreach (double d in fractions)
+				final *= d;
+			return Math.Round(1 / final);
+		}
+
+		public static int Problem34()
+		{
+			int total = 0;
+
+			for (int x = 10; x < 999999; x++)
+			{
+				int sum = 0;
+				for (int y = 0; y < x.ToString().Length; y++)
+					sum += x.DigitAt(y).Factorial();
+				if (x == sum)
+					total += x;
+			}
+
+			return total;
+		}
+
 		public static int Problem37()
 		{
 			int sum = 0;
