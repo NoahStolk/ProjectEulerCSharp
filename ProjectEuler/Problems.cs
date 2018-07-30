@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -1030,6 +1031,16 @@ namespace ProjectEuler
 			return grid;
 		}
 
+		public static int Problem63()
+		{
+			int total = 0;
+			for (int i = 1; i < 25; i++)
+				for (int j = 1; j < 25; j++)
+					if (BigInteger.Pow(i, j).ToString().Length == j)
+						total++;
+			return total;
+		}
+
 		public static int Problem67()
 		{
 			const int triangleSize = 100;
@@ -1150,6 +1161,48 @@ namespace ProjectEuler
 			}
 
 			return matrix[0][0];
+		}
+
+		/// <summary>
+		/// unsolved
+		/// </summary>
+		/// <returns></returns>
+		public static int Problem89()
+		{
+			int oldChars = 0;
+			int newChars = 0;
+			foreach (string line in File.ReadAllLines(Path.Combine("Resources", "89.txt")))
+			{
+				oldChars += line.Length;
+				newChars += RomanUtils.IntegerToRoman(RomanUtils.RomanToInteger(line)).Length;
+			}
+			return newChars - oldChars;
+		}
+
+		public static int Problem92()
+		{
+			int total = 0;
+
+			for (int i = 1; i < 10000000; i++)
+			{
+				int j = i;
+				while (j != 1)
+				{
+					j = j.SquareDigits();
+					if (j == 89)
+					{
+						total++;
+						break;
+					}
+				}
+			}
+
+			return total;
+		}
+
+		public static BigInteger Problem97()
+		{
+			return (28433 * BigInteger.Pow(2, 7830457) + 1) % 10000000000;
 		}
 
 		public static int Problem179()
