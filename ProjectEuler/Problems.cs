@@ -793,6 +793,28 @@ namespace ProjectEuler
 			return total;
 		}
 
+		public static int Problem35()
+		{
+			int total = 0;
+			for (int i = 0; i < 1000000; i++)
+			{
+				if (i.IsCircularPrime())
+					total++;
+			}
+			return total;
+		}
+
+		public static int Problem36()
+		{
+			int total = 0;
+			for (int i = 0; i < 1000000; i++)
+			{
+				if (i.ToString().IsPalindrome() && Convert.ToString(i, 2).IsPalindrome())
+					total += i;
+			}
+			return total;
+		}
+
 		public static int Problem37()
 		{
 			int sum = 0;
