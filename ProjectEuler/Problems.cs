@@ -916,6 +916,120 @@ namespace ProjectEuler
 			return s.Substring(s.Length - 10);
 		}
 
+		public static string Problem49()
+		{
+			for (int i = 1488; i < 9999; i++)
+			{
+				if (!i.IsPrime())
+					continue;
+
+				string x = i.ToString();
+				List<string> perms = x.GetPermutations("");
+
+				foreach (string y in perms)
+				{
+					int yy = int.Parse(y);
+
+					if (i == yy || !yy.IsPrime())
+						continue;
+
+					foreach (string z in perms)
+					{
+						int zz = int.Parse(z);
+
+						if (zz == yy || !zz.IsPrime())
+							continue;
+
+						if (zz - yy == yy - i && yy - i > 0)
+							return x + y + z;
+					}
+				}
+			}
+			return "";
+		}
+
+		public static int Problem52()
+		{
+			int i = 0;
+			for (; ; )
+			{
+				i++;
+				if (i.SameDigits(i * 2) && i.SameDigits(i * 3) && i.SameDigits(i * 4) && i.SameDigits(i * 5) && i.SameDigits(i * 6))
+					return i;
+			}
+		}
+
+		public static int Problem53()
+		{
+			int total = 0;
+			for (BigInteger i = 1; i < 101; i++)
+				for (BigInteger j = 1; j < i; j++)
+					if (i.Combinations(j) > 1000000)
+						total++;
+			return total;
+		}
+
+		public static int Problem55()
+		{
+			int lychrels = 0;
+			for (int i = 10; i < 10000; i++)
+				if (i.IsLychrel())
+					lychrels++;
+			return lychrels;
+		}
+
+		public static double Problem56()
+		{
+			double largest = 0;
+
+			for (int i = 0; i < 100; i++)
+			{
+				for (int j = 0; j < 100; j++)
+				{
+					BigInteger r = BigInteger.Pow(i, j);
+
+					double sum = 0;
+					for (int k = 0; k < r.ToString().Length; k++)
+						sum += r.DigitAt(k);
+					if (largest < sum)
+						largest = sum;
+				}
+			}
+			return largest;
+		}
+
+		public static double Problem58()
+		{
+			double result = 1;
+			double grid = 1;
+			double num = 1;
+			double multiplier = 2;
+			double i = 0;
+			double primes = 0;
+			for (; ; )
+			{
+				double diagonals = grid * 2 - 1;
+				while (i < diagonals)
+				{
+					if (num.IsPrime() && i % 4 != 0)
+						primes++;
+					i++;
+					num += multiplier;
+					if (i % 4 == 0)
+						multiplier += 2;
+				}
+
+				result = primes / diagonals;
+
+				if (result < 0.1 && grid != 1)
+					break;
+				else
+					grid += 2;
+			}
+
+			return grid;
+		}
+
 		public static int Problem67()
 		{
 			const int triangleSize = 100;
