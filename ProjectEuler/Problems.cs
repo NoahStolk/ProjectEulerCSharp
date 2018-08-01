@@ -428,40 +428,30 @@ namespace ProjectEuler
 
 			return totalScore;
 		}
-
-		/// <summary>
-		/// unsolved
-		/// </summary>
-		/// <returns></returns>
+		
 		public static int Problem23()
 		{
 			int max = 28124;
 
 			List<int> abundants = new List<int>();
-
-			int result = 0;
-			for (int i = 1; i < max / 2; i += 2)
+			for (int i = 1; i < max; i++)
 				if (i < i.GetProperDivisorSum())
 					abundants.Add(i);
 
-			for (int i = 1; i < max; i += 2)
+			int result = 0;
+			for (int i = 1; i < max; i++)
 			{
-				if (i % 10 == 0)
-					continue;
-
-				bool sum = true;
+				bool writtenAsTwo = false;
 				for (int j = 0; j < abundants.Count; j++)
 				{
-					if (abundants[j] >= i / 2)
-						break;
 					if (abundants.Contains(i - abundants[j]))
 					{
-						sum = false;
+						writtenAsTwo = true;
 						break;
 					}
 				}
 
-				if (sum)
+				if (!writtenAsTwo)
 					result += i;
 			}
 			return result;
