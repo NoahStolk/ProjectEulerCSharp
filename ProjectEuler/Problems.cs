@@ -1162,11 +1162,7 @@ namespace ProjectEuler
 
 			return matrix[0][0];
 		}
-
-		/// <summary>
-		/// unsolved
-		/// </summary>
-		/// <returns></returns>
+		
 		public static int Problem89()
 		{
 			int oldChars = 0;
@@ -1176,7 +1172,7 @@ namespace ProjectEuler
 				oldChars += line.Length;
 				newChars += RomanUtils.IntegerToRoman(RomanUtils.RomanToInteger(line)).Length;
 			}
-			return newChars - oldChars;
+			return oldChars - newChars;
 		}
 
 		public static int Problem92()
