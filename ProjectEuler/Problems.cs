@@ -490,6 +490,44 @@ namespace ProjectEuler
 			return d;
 		}
 
+		public static int Problem26()
+		{
+			int longest = 0;
+			int hasLongest = 0;
+			for (int i = 2; i < 1000; i++)
+			{
+				Restart:
+				BigInteger d = BigInteger.Pow(10, 2000) / i;
+				string s = d.ToString();
+
+				for (int j = 0; j < 10; j++)
+				{
+					if (s.Contains($"{j}{j}{j}{j}"))
+					{
+						i++;
+						goto Restart;
+					}
+				}
+				
+				StringBuilder cycle = new StringBuilder();
+				for (int j = 0; j < s.Length; j++)
+				{
+					cycle.Append(s[j]);
+					string c = cycle.ToString();
+					if (s.SubstringSafe(j + 1, c.Length) == c)
+					{
+						if (longest < cycle.Length)
+						{
+							longest = cycle.Length;
+							hasLongest = i;
+						}
+						break;
+					}
+				}
+			}
+			return hasLongest;
+		}
+
 		public static int Problem28()
 		{
 			int grid = 1001;
