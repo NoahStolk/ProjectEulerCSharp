@@ -611,7 +611,7 @@ namespace ProjectEuler
 
 			for (int i = 123456789; i < 987654321 / 2; i += 9)
 			{
-				if (!i.IsPandigital())
+				if (!i.IsPandigital(false))
 					continue;
 
 				string x = i.ToString();
@@ -740,7 +740,7 @@ namespace ProjectEuler
 		{
 			int largest = 0;
 			for (int x = 1; x < 7777777; x++)
-				if (x.IsPandigital() && x.IsPrime())
+				if (x.IsPandigital(false) && x.IsPrime())
 					if (x > largest)
 						largest = x;
 			return largest;
