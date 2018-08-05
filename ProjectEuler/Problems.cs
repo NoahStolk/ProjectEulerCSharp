@@ -766,6 +766,34 @@ namespace ProjectEuler
 			return triangles;
 		}
 
+		/// <summary>
+		/// unsolved
+		/// </summary>
+		/// <returns></returns>
+		public static BigInteger Problem43()
+		{
+			List<ulong> primes = new List<ulong>() { 2, 3, 5, 7, 11, 13, 17 };
+
+			BigInteger result = 0;
+			foreach (string s in "0123456789".GetPermutations(""))
+			{
+				//Continue:
+				//if (!i.IsPandigital(true))
+				//	continue;
+
+				//string s = i.ToString();
+				//for (int j = 0; j < 6; j++)
+				//	if (ulong.Parse(s.Substring(j + 2, 3)) % primes[j] != 0)
+				//	{
+				//		i += 9;
+				//		goto Continue;
+				//	}
+
+				result += 1;
+			}
+			return result;
+		}
+
 		public static int Problem44()
 		{
 			for (int i = 1; i < 10001; i++)
@@ -1000,6 +1028,48 @@ namespace ProjectEuler
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// unsolved
+		/// </summary>
+		/// <returns></returns>
+		public static int Problem345()
+		{
+			int[][] matrix = Utils.GenerateMatrix(345);
+
+			int largest = 0;
+			List<Tuple<int, int>> taken = new List<Tuple<int, int>>();
+			Dictionary<int, Tuple<int, int>> nums = new Dictionary<int, Tuple<int, int>>();
+			int len = matrix.GetLength(0);
+
+			List<int> order = new List<int> { 0, 1, 2, 3, 4, /*5, 6, 7, 8, 9, 10, 11, 12, 13, 14*/ };
+			foreach (List<int> combo in order.GetAllCombos())
+			{
+				int result = 0;
+				taken.Clear();
+				foreach (int i in combo)
+				{
+					nums.Clear();
+					for (int j = 0; j < len; j++)
+					{
+						if (!taken.Contains(Tuple.Create(i, j)))// && !nums.ContainsKey(matrix[i][j]))
+							//foreach ()
+							nums.Add(matrix[i][j], Tuple.Create(i, j));
+						if (!taken.Contains(Tuple.Create(j, i)) && !nums.ContainsKey(matrix[j][i]))
+							nums.Add(matrix[j][i], Tuple.Create(j, i));
+					}
+					KeyValuePair<int, Tuple<int, int>> max = nums.FirstOrDefault(x => x.Key == nums.Keys.Max());
+
+					taken.Add(Tuple.Create(max.Value.Item1, max.Value.Item2));
+
+					result += max.Key;
+				}
+				if (result > largest)
+					largest = result;
+			}
+
+			return largest;
 		}
 	}
 }
