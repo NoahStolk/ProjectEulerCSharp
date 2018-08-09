@@ -17,7 +17,7 @@ namespace ProjectEuler
 			WriteLineColor("Project Euler - C#", ConsoleColor.Green);
 			WriteLineColor("Enter 'help' for a list of commands.", ConsoleColor.Cyan);
 			Console.WriteLine();
-
+			
 			for (; ; )
 			{
 				WriteColor("Enter command: ", ConsoleColor.Yellow);
@@ -66,19 +66,7 @@ namespace ProjectEuler
 						Stopwatch stopwatch = new Stopwatch();
 						stopwatch.Start();
 
-						//Timer timer = new Timer((o) =>
-						//{
-						//	WriteLineColor(string.Format("{0, -15}{1, -15}{2, -15}", kvp.Value.Name.Numeric(), "...", stopwatch.Elapsed), ConsoleColor.White);
-						//	GC.Collect();
-						//}, null, 0, 1);
-
-						//Thread solve = new Thread(() =>
-						{
-							WriteLineColor(string.Format("{0, -15}{1, -15}{2, -15}", kvp.Value.Name.Numeric(), kvp.Value.Invoke(problems, null), stopwatch.Elapsed), ConsoleColor.White);
-							//timer.Dispose();
-						}//);
-						//solve.Start();
-						//solve.Join();
+						WriteLineColor(string.Format("{0, -15}{1, -15}{2, -15}", kvp.Value.Name.Numeric(), kvp.Value.Invoke(problems, null), stopwatch.Elapsed), ConsoleColor.White);
 					}
 					catch (NullReferenceException)
 					{

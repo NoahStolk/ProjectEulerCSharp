@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ProjectEuler
@@ -24,6 +25,22 @@ namespace ProjectEuler
 					matrix[i][j] = int.Parse(numbers[j]);
 				i++;
 			}
+			return matrix;
+		}
+
+		public static int[] GenerateList(int problem)
+		{
+			string file = Path.Combine("Resources", $"{problem.ToString("D3")}.txt");
+			string r = File.ReadAllText(file);
+			while (r.Contains("  "))
+				r = r.Replace("  ", " ");
+			r = r.Replace("\r\n", " ");
+			if (r[0] == ' ')
+				r = r.Substring(1);
+			string[] numbers = r.Split(' ');
+			int[] matrix = new int[numbers.Length];
+			for (int i = 0; i < matrix.Length; i++)
+				matrix[i] = int.Parse(numbers[i]);
 			return matrix;
 		}
 	}
