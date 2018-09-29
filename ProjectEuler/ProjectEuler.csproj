@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectEuler</RootNamespace>
     <AssemblyName>ProjectEuler</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,19 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BigIntegerUtils.cs" />
     <Compile Include="Problems.cs" />
+    <Compile Include="ProblemUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\XtendedNET\XtendedNET\XtendedNET.csproj">
-      <Project>{7521808f-0816-4c56-bfb5-93b9d88b0dbc}</Project>
-      <Name>XtendedNET</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\011.txt">
@@ -86,6 +83,12 @@
     <Content Include="Resources\345.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetBase\NetBase\NetBase.csproj">
+      <Project>{25f631b5-133b-4136-a995-040072fc405f}</Project>
+      <Name>NetBase</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

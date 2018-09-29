@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler", "ProjectEuler\ProjectEuler.csproj", "{01A8D120-AE38-4271-8C92-4C3395C4EE28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtendedNET", "..\XtendedNET\XtendedNET\XtendedNET.csproj", "{7521808F-0816-4C56-BFB5-93B9D88B0DBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBase", "..\NetBase\NetBase\NetBase.csproj", "{25F631B5-133B-4136-A995-040072FC405F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{01A8D120-AE38-4271-8C92-4C3395C4EE28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01A8D120-AE38-4271-8C92-4C3395C4EE28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01A8D120-AE38-4271-8C92-4C3395C4EE28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7521808F-0816-4C56-BFB5-93B9D88B0DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7521808F-0816-4C56-BFB5-93B9D88B0DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7521808F-0816-4C56-BFB5-93B9D88B0DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7521808F-0816-4C56-BFB5-93B9D88B0DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25F631B5-133B-4136-A995-040072FC405F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25F631B5-133B-4136-A995-040072FC405F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25F631B5-133B-4136-A995-040072FC405F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25F631B5-133B-4136-A995-040072FC405F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

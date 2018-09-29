@@ -1,9 +1,9 @@
-﻿using System;
+﻿using NetBase.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using XtendedNET.Extensions;
 
 namespace ProjectEuler
 {
@@ -17,7 +17,7 @@ namespace ProjectEuler
 			WriteLineColor("Project Euler - C#", ConsoleColor.Green);
 			WriteLineColor("Enter 'help' for a list of commands.", ConsoleColor.Cyan);
 			Console.WriteLine();
-			
+
 			for (; ; )
 			{
 				WriteColor("Enter command: ", ConsoleColor.Yellow);
@@ -75,7 +75,7 @@ namespace ProjectEuler
 					catch (Exception ex)
 					{
 						WriteLineColor("FATAL ERROR", ConsoleColor.Red);
-						WriteLineColor(ex.GetAllInnerExceptionMessages("\n===\n"), ConsoleColor.Red);
+						WriteLineColor(ex.AllInnerExceptionMessages("\n===\n"), ConsoleColor.Red);
 					}
 				}
 
