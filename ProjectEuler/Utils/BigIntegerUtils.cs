@@ -1,7 +1,7 @@
 ﻿using NetBase.Extensions;
 using System.Numerics;
 
-namespace ProjectEuler
+namespace ProjectEuler.Utils
 {
 	public static class BigIntegerUtils
 	{

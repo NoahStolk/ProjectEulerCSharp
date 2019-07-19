@@ -6,12 +6,20 @@ using System.Numerics;
 using System.Text;
 using NetBase.Extensions;
 using NetBase.Utils;
+using ProjectEuler.Utils;
 
 namespace ProjectEuler
 {
-	public class Problems
+	public sealed class Problems
 	{
-		public static int Problem1()
+		private static readonly Lazy<Problems> lazy = new Lazy<Problems>(() => new Problems());
+		public static Problems Instance => lazy.Value;
+
+		private Problems()
+		{
+		}
+
+		public int Problem1()
 		{
 			int result = 0;
 			for (int i = 3; i < 1000; i++)
@@ -20,7 +28,7 @@ namespace ProjectEuler
 			return result;
 		}
 
-		public static int Problem2()
+		public int Problem2()
 		{
 			int a, b, c, d;
 			a = 0;
@@ -40,7 +48,7 @@ namespace ProjectEuler
 			return d;
 		}
 
-		public static int Problem3()
+		public int Problem3()
 		{
 			long a = 600851475143;
 			int b = 2;
@@ -56,16 +64,14 @@ namespace ProjectEuler
 			return b;
 		}
 
-		public static int Problem4()
+		public int Problem4()
 		{
 			int largest = 0;
-
-			int x = 0;
 			for (int i = 100; i < 1000; i++)
 			{
 				for (int j = 100; j < 1000; j++)
 				{
-					x = i * j;
+					int x = i * j;
 
 					if (x.ToString() == x.ToString().Reverse())
 						if (x > largest)
@@ -76,7 +82,7 @@ namespace ProjectEuler
 			return largest;
 		}
 
-		public static long Problem5()
+		public long Problem5()
 		{
 			int intCount = 20;
 
@@ -97,7 +103,7 @@ namespace ProjectEuler
 			}
 		}
 
-		public static int Problem6()
+		public int Problem6()
 		{
 			int x = 100;
 			int a = 0;
@@ -114,7 +120,7 @@ namespace ProjectEuler
 			return b - a;
 		}
 
-		public static int Problem7()
+		public int Problem7()
 		{
 			int primes = 1;
 			int number = 3;
@@ -130,7 +136,7 @@ namespace ProjectEuler
 			}
 		}
 
-		public static long Problem8()
+		public long Problem8()
 		{
 			string digits = File.ReadAllText(Path.Combine("Resources", "008.txt"));
 
@@ -150,15 +156,14 @@ namespace ProjectEuler
 			return highest;
 		}
 
-		public static long Problem9()
+		public long Problem9()
 		{
-			double a = 0;
 			int num = 1000;
 			long ans = 0;
 
 			for (int i = 1; i < num / 2; i++)
 			{
-				a = (Math.Pow(num, 2) / 2 - num * i) / (num - i);
+				double a = (Math.Pow(num, 2) / 2 - num * i) / (num - i);
 				if (a % 1 == 0)
 					ans = (long)(a * i * (num - a - i));
 			}
@@ -166,7 +171,7 @@ namespace ProjectEuler
 			return ans;
 		}
 
-		public static long Problem10()
+		public long Problem10()
 		{
 			int[] primes = new int[256];
 			int primeIndex = 0;
@@ -198,15 +203,15 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static int Problem11()
+		public int Problem11()
 		{
 			int w = 20;
 			int h = 20;
-			int[][] matrix = Utils.GenerateMatrix(11);
+			int[][] matrix = ResourceUtils.GenerateMatrix(11);
 
 			int highest = 0;
 
-			int product = 0;
+			int product;
 			for (int x = 0; x < h; x++)
 				for (int y = 0; y < w - 3; y++)
 				{
@@ -242,7 +247,7 @@ namespace ProjectEuler
 			return highest;
 		}
 
-		public static int Problem12()
+		public int Problem12()
 		{
 			int n = 2;
 			int triangle = 3;
@@ -259,7 +264,7 @@ namespace ProjectEuler
 			return triangle;
 		}
 
-		public static string Problem13()
+		public string Problem13()
 		{
 			string[] digits = File.ReadAllLines(Path.Combine("Resources", "013.txt"));
 			string total = "0";
@@ -269,7 +274,7 @@ namespace ProjectEuler
 			return total.Substring(0, 10);
 		}
 
-		public static int Problem14()
+		public int Problem14()
 		{
 			int highestX = 0;
 			int highestZ = 0;
@@ -303,14 +308,14 @@ namespace ProjectEuler
 			return highestX;
 		}
 
-		public static BigInteger Problem15()
+		public BigInteger Problem15()
 		{
 			BigInteger grid = 20;
 
 			return BigIntegerUtils.Factorial(grid * 2) / BigIntegerUtils.Factorial(grid) / BigIntegerUtils.Factorial(grid);
 		}
 
-		public static int Problem16()
+		public int Problem16()
 		{
 			List<int> digits = IntegerUtils.PowersOfTwo(1000);
 
@@ -321,7 +326,7 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static int Problem17()
+		public int Problem17()
 		{
 			int letters = 0;
 
@@ -331,9 +336,9 @@ namespace ProjectEuler
 			return letters;
 		}
 
-		public static int Problem18()
+		public int Problem18()
 		{
-			int[][] matrix = Utils.GenerateMatrix(18);
+			int[][] matrix = ResourceUtils.GenerateMatrix(18);
 
 			for (int y = matrix.GetLength(0) - 2; y > -1; y--)
 			{
@@ -349,7 +354,7 @@ namespace ProjectEuler
 			return matrix[0][0];
 		}
 
-		public static int Problem19()
+		public int Problem19()
 		{
 			int s = 0;
 			for (int i = 1901; i < 2001; i++)
@@ -359,7 +364,7 @@ namespace ProjectEuler
 			return s;
 		}
 
-		public static BigInteger Problem20()
+		public BigInteger Problem20()
 		{
 			int number = 100;
 			BigInteger total = 1;
@@ -381,7 +386,7 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static int Problem21()
+		public int Problem21()
 		{
 			int t = 0;
 
@@ -405,7 +410,7 @@ namespace ProjectEuler
 			return t;
 		}
 
-		public static int Problem22()
+		public int Problem22()
 		{
 			int totalScore = 0;
 			string text = File.ReadAllText(Path.Combine("Resources", "022.txt"));
@@ -414,13 +419,12 @@ namespace ProjectEuler
 
 			for (int x = 0; x < names.Length; x++)
 			{
-				int score = 0;
 				int letterScore = 0;
 
 				for (int y = 0; y < names[x].Length; y++)
 					letterScore += names[x][y] - 64;
 
-				score = letterScore * (x + 1);
+				int score = letterScore * (x + 1);
 
 				totalScore += score;
 			}
@@ -428,7 +432,7 @@ namespace ProjectEuler
 			return totalScore;
 		}
 
-		public static int Problem23()
+		public int Problem23()
 		{
 			int max = 28124;
 
@@ -456,7 +460,7 @@ namespace ProjectEuler
 			return result;
 		}
 
-		public static string Problem24()
+		public string Problem24()
 		{
 			string digits = "0123456789";
 
@@ -471,7 +475,7 @@ namespace ProjectEuler
 			return "";
 		}
 
-		public static int Problem25()
+		public int Problem25()
 		{
 			string a = "0";
 			string b = "1";
@@ -489,7 +493,7 @@ namespace ProjectEuler
 			return d;
 		}
 
-		public static int Problem26()
+		public int Problem26()
 		{
 			int longest = 0;
 			int hasLongest = 0;
@@ -527,7 +531,7 @@ namespace ProjectEuler
 			return hasLongest;
 		}
 
-		public static int Problem28()
+		public int Problem28()
 		{
 			int grid = 1001;
 			int diagonals = grid * 2 - 1;
@@ -549,7 +553,7 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static int Problem29()
+		public int Problem29()
 		{
 			List<double> sequence = new List<double>();
 
@@ -562,7 +566,7 @@ namespace ProjectEuler
 			return sequence.Count;
 		}
 
-		public static int Problem30()
+		public int Problem30()
 		{
 			int t = 0;
 
@@ -578,7 +582,7 @@ namespace ProjectEuler
 			return t;
 		}
 
-		public static int Problem31()
+		public int Problem31()
 		{
 			int a = 200;
 			int b = 100;
@@ -604,7 +608,7 @@ namespace ProjectEuler
 			return count;
 		}
 
-		public static int Problem32()
+		public int Problem32()
 		{
 			List<int> answers = new List<int>();
 
@@ -631,7 +635,7 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static double Problem33()
+		public double Problem33()
 		{
 			List<double> fractions = new List<double>();
 
@@ -665,7 +669,7 @@ namespace ProjectEuler
 			return Math.Round(1 / final);
 		}
 
-		public static int Problem34()
+		public int Problem34()
 		{
 			int total = 0;
 
@@ -681,7 +685,7 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static int Problem35()
+		public int Problem35()
 		{
 			int total = 0;
 			for (uint i = 0; i < 1000000; i++)
@@ -692,7 +696,7 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static int Problem36()
+		public int Problem36()
 		{
 			int total = 0;
 			for (int i = 0; i < 1000000; i++)
@@ -703,7 +707,7 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static uint Problem37()
+		public uint Problem37()
 		{
 			uint sum = 0;
 			int primes = 0;
@@ -722,7 +726,7 @@ namespace ProjectEuler
 			return sum;
 		}
 
-		public static int Problem40()
+		public int Problem40()
 		{
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < 1000000; i++)
@@ -735,7 +739,7 @@ namespace ProjectEuler
 			return result;
 		}
 
-		public static int Problem41()
+		public int Problem41()
 		{
 			int largest = 0;
 			for (int x = 1; x < 7777777; x++)
@@ -745,7 +749,7 @@ namespace ProjectEuler
 			return largest;
 		}
 
-		public static int Problem42()
+		public int Problem42()
 		{
 			string text = File.ReadAllText(Path.Combine("Resources", "042.txt"));
 			string[] words = text.Replace("\"", "").Split(',');
@@ -765,11 +769,8 @@ namespace ProjectEuler
 			return triangles;
 		}
 
-		/// <summary>
-		/// unsolved
-		/// </summary>
-		/// <returns></returns>
-		public static BigInteger Problem43()
+		// TODO
+		public BigInteger Problem43()
 		{
 			List<ulong> primes = new List<ulong>() { 2, 3, 5, 7, 11, 13, 17 };
 
@@ -793,7 +794,7 @@ namespace ProjectEuler
 			return result;
 		}
 
-		public static int Problem44()
+		public int Problem44()
 		{
 			for (int i = 1; i < 10001; i++)
 			{
@@ -808,7 +809,7 @@ namespace ProjectEuler
 			return 0;
 		}
 
-		public static long Problem45()
+		public long Problem45()
 		{
 			long i = 143;
 			for (; ; )
@@ -820,7 +821,7 @@ namespace ProjectEuler
 			}
 		}
 
-		public static string Problem48()
+		public string Problem48()
 		{
 			BigInteger answer = 1;
 			for (int i = 2; i < 1000; i++)
@@ -831,7 +832,7 @@ namespace ProjectEuler
 			return s.Substring(s.Length - 10);
 		}
 
-		public static string Problem49()
+		public string Problem49()
 		{
 			for (int i = 1488; i < 9999; i++)
 			{
@@ -867,7 +868,7 @@ namespace ProjectEuler
 		/// unsolved
 		/// </summary>
 		/// <returns></returns>
-		public static int Problem50()
+		public int Problem50()
 		{
 			int answer = 0;
 
@@ -885,7 +886,7 @@ namespace ProjectEuler
 			return answer;
 		}
 
-		public static int Problem52()
+		public int Problem52()
 		{
 			int i = 0;
 			for (; ; )
@@ -899,7 +900,7 @@ namespace ProjectEuler
 			}
 		}
 
-		public static int Problem53()
+		public int Problem53()
 		{
 			int total = 0;
 			for (BigInteger i = 1; i < 101; i++)
@@ -909,7 +910,7 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static int Problem55()
+		public int Problem55()
 		{
 			int lychrels = 0;
 			for (int i = 10; i < 10000; i++)
@@ -918,7 +919,7 @@ namespace ProjectEuler
 			return lychrels;
 		}
 
-		public static double Problem56()
+		public double Problem56()
 		{
 			double largest = 0;
 
@@ -938,9 +939,8 @@ namespace ProjectEuler
 			return largest;
 		}
 
-		public static double Problem58()
+		public double Problem58()
 		{
-			double result = 1;
 			double grid = 1;
 			long num = 1;
 			long multiplier = 2;
@@ -959,7 +959,7 @@ namespace ProjectEuler
 						multiplier += 2;
 				}
 
-				result = primes / diagonals;
+				double result = primes / diagonals;
 
 				if (result < 0.1 && grid != 1)
 					break;
@@ -970,7 +970,7 @@ namespace ProjectEuler
 			return grid;
 		}
 
-		public static int Problem63()
+		public int Problem63()
 		{
 			int total = 0;
 			for (int i = 1; i < 25; i++)
@@ -980,9 +980,9 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static int Problem67()
+		public int Problem67()
 		{
-			int[][] matrix = Utils.GenerateMatrix(67);
+			int[][] matrix = ResourceUtils.GenerateMatrix(67);
 
 			for (int y = matrix.GetLength(0) - 2; y > -1; y--)
 			{
@@ -998,7 +998,7 @@ namespace ProjectEuler
 			return matrix[0][0];
 		}
 
-		public static int Problem89()
+		public int Problem89()
 		{
 			int oldChars = 0;
 			int newChars = 0;
@@ -1010,7 +1010,7 @@ namespace ProjectEuler
 			return oldChars - newChars;
 		}
 
-		public static int Problem92()
+		public int Problem92()
 		{
 			int total = 0;
 
@@ -1031,12 +1031,12 @@ namespace ProjectEuler
 			return total;
 		}
 
-		public static BigInteger Problem97()
+		public BigInteger Problem97()
 		{
 			return (28433 * BigInteger.Pow(2, 7830457) + 1) % 10000000000;
 		}
 
-		public static int Problem179()
+		public int Problem179()
 		{
 			int limit = (int)Math.Pow(10, 7);
 			int result = 0;
@@ -1054,13 +1054,10 @@ namespace ProjectEuler
 			return result;
 		}
 
-		/// <summary>
-		/// unsolved
-		/// </summary>
-		/// <returns></returns>
-		public static string Problem345()
+		// TODO
+		public string Problem345()
 		{
-			List<int> originalList = Utils.GenerateList(345).ToList();
+			List<int> originalList = ResourceUtils.GenerateList(345).ToList();
 			List<List<int>> combos = originalList.GetAllCombos();
 
 			int c = 0;

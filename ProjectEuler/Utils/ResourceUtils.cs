@@ -1,16 +1,16 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace ProjectEuler
+namespace ProjectEuler.Utils
 {
-	public static class Utils
+	public static class ResourceUtils
 	{
 		public static int[][] GenerateMatrix(int problem)
 		{
-			string file = Path.Combine("Resources", $"{problem.ToString("D3")}.txt");
-			int[][] matrix = new int[File.ReadLines(file).Count()][];
+			string filePath = Path.Combine("Resources", $"{problem.ToString("D3")}.txt");
+			int[][] matrix = new int[File.ReadLines(filePath).Count()][];
 			int i = 0;
-			foreach (string line in File.ReadAllLines(file))
+			foreach (string line in File.ReadAllLines(filePath))
 			{
 				string lineCopy = line;
 				while (lineCopy.Contains("  "))
@@ -29,14 +29,15 @@ namespace ProjectEuler
 
 		public static int[] GenerateList(int problem)
 		{
-			string file = Path.Combine("Resources", $"{problem.ToString("D3")}.txt");
-			string r = File.ReadAllText(file);
-			while (r.Contains("  "))
-				r = r.Replace("  ", " ");
-			r = r.Replace("\r\n", " ");
-			if (r[0] == ' ')
-				r = r.Substring(1);
-			string[] numbers = r.Split(' ');
+			string filePath = Path.Combine("Resources", $"{problem.ToString("D3")}.txt");
+			string fileContents = File.ReadAllText(filePath);
+			while (fileContents.Contains("  "))
+				fileContents = fileContents.Replace("  ", " ");
+			fileContents = fileContents.Replace("\r\n", " ");
+			if (fileContents[0] == ' ')
+				fileContents = fileContents.Substring(1);
+
+			string[] numbers = fileContents.Split(' ');
 			int[] matrix = new int[numbers.Length];
 			for (int i = 0; i < matrix.Length; i++)
 				matrix[i] = int.Parse(numbers[i]);
