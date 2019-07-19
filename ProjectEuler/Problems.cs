@@ -1090,15 +1090,16 @@ namespace ProjectEuler
 					takenY.Add(kvp.Key % 5);
 				}
 
-				string highestStr = "";
+				StringBuilder highestStr = new StringBuilder();
 				int result = 0;
 				foreach (int num in highest.Values)
 				{
 					result += num;
-					highestStr += num.ToString() + " + ";
+					highestStr.Append(num.ToString());
+					highestStr.Append(" + ");
 				}
 
-				return highestStr.TrimEnd("+ ") + " = " + result;
+				return highestStr.ToString().TrimEnd("+ ") + " = " + result;
 			}
 		}
 	}

@@ -45,12 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BigIntegerUtils.cs" />
+    <Compile Include="Utils\BigIntegerUtils.cs" />
     <Compile Include="Problems.cs" />
-    <Compile Include="ProblemUtils.cs" />
+    <Compile Include="Utils\ProblemUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Utils\ResourceUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
