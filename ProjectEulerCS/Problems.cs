@@ -1,14 +1,13 @@
-﻿using System;
+﻿using NetBase.Extensions;
+using ProjectEulerCS.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using NetBase.Extensions;
-using NetBase.Utils;
-using ProjectEuler.Utils;
 
-namespace ProjectEuler
+namespace ProjectEulerCS
 {
 	public sealed class Problems
 	{
@@ -126,7 +125,7 @@ namespace ProjectEuler
 			int number = 3;
 			for (; ; )
 			{
-				if (PrimeUtils.IsPrime(number))
+				if (MathUtils.IsPrime(number))
 					primes++;
 
 				if (primes == 10001)
@@ -189,7 +188,7 @@ namespace ProjectEuler
 					}
 				}
 
-				if (PrimeUtils.IsPrime(i))
+				if (MathUtils.IsPrime(i))
 				{
 					total += i;
 					if (primeIndex < primes.Length)
@@ -254,7 +253,7 @@ namespace ProjectEuler
 
 			for (; ; )
 			{
-				if (IntegerUtils.GetDivisorAmount(triangle) > 500)
+				if (MathUtils.GetDivisorAmount(triangle) > 500)
 					break;
 
 				n++;
@@ -312,12 +311,12 @@ namespace ProjectEuler
 		{
 			BigInteger grid = 20;
 
-			return BigIntegerUtils.Factorial(grid * 2) / BigIntegerUtils.Factorial(grid) / BigIntegerUtils.Factorial(grid);
+			return MathUtils.Factorial(grid * 2) / MathUtils.Factorial(grid) / MathUtils.Factorial(grid);
 		}
 
 		public int Problem16()
 		{
-			List<int> digits = IntegerUtils.PowersOfTwo(1000);
+			List<int> digits = MathUtils.PowersOfTwo(1000);
 
 			int total = 0;
 			for (int i = 0; i < digits.Count; i++)
@@ -438,7 +437,7 @@ namespace ProjectEuler
 
 			List<int> abundants = new List<int>();
 			for (int i = 1; i < max; i++)
-				if (i < IntegerUtils.GetProperDivisorSum(i))
+				if (i < MathUtils.GetProperDivisorSum(i))
 					abundants.Add(i);
 
 			int result = 0;
@@ -574,7 +573,7 @@ namespace ProjectEuler
 			{
 				int sum = 0;
 				for (int y = 0; y < x.ToString().Length; y++)
-					sum += (int)Math.Pow(IntegerUtils.DigitAt(x, y), 5);
+					sum += (int)Math.Pow(MathUtils.DigitAt(x, y), 5);
 				if (x == sum)
 					t += x;
 			}
@@ -649,14 +648,14 @@ namespace ProjectEuler
 					double fraction1 = j / i;
 					double fraction2 = 0;
 
-					if (FloatingPointUtils.DigitAt(j, 0) == FloatingPointUtils.DigitAt(i, 0))
-						fraction2 = FloatingPointUtils.DigitAt(j, 1) / FloatingPointUtils.DigitAt(i, 1);
-					else if (FloatingPointUtils.DigitAt(j, 1) == FloatingPointUtils.DigitAt(i, 0))
-						fraction2 = FloatingPointUtils.DigitAt(j, 0) / FloatingPointUtils.DigitAt(i, 1);
-					else if (FloatingPointUtils.DigitAt(j, 0) == FloatingPointUtils.DigitAt(i, 1))
-						fraction2 = FloatingPointUtils.DigitAt(j, 1) / FloatingPointUtils.DigitAt(i, 0);
-					else if (FloatingPointUtils.DigitAt(j, 1) == FloatingPointUtils.DigitAt(i, 1))
-						fraction2 = FloatingPointUtils.DigitAt(j, 0) / FloatingPointUtils.DigitAt(i, 0);
+					if (MathUtils.DigitAt(j, 0) == MathUtils.DigitAt(i, 0))
+						fraction2 = MathUtils.DigitAt(j, 1) / MathUtils.DigitAt(i, 1);
+					else if (MathUtils.DigitAt(j, 1) == MathUtils.DigitAt(i, 0))
+						fraction2 = MathUtils.DigitAt(j, 0) / MathUtils.DigitAt(i, 1);
+					else if (MathUtils.DigitAt(j, 0) == MathUtils.DigitAt(i, 1))
+						fraction2 = MathUtils.DigitAt(j, 1) / MathUtils.DigitAt(i, 0);
+					else if (MathUtils.DigitAt(j, 1) == MathUtils.DigitAt(i, 1))
+						fraction2 = MathUtils.DigitAt(j, 0) / MathUtils.DigitAt(i, 0);
 
 					if (fraction1 == fraction2)
 						fractions.Add(fraction1);
@@ -677,7 +676,7 @@ namespace ProjectEuler
 			{
 				int sum = 0;
 				for (int y = 0; y < x.ToString().Length; y++)
-					sum += IntegerUtils.Factorial(IntegerUtils.DigitAt(x, y));
+					sum += MathUtils.Factorial(MathUtils.DigitAt(x, y));
 				if (x == sum)
 					total += x;
 			}
@@ -690,7 +689,7 @@ namespace ProjectEuler
 			int total = 0;
 			for (uint i = 0; i < 1000000; i++)
 			{
-				if (PrimeUtils.IsCircularPrime(i))
+				if (MathUtils.IsCircularPrime(i))
 					total++;
 			}
 			return total;
@@ -715,7 +714,7 @@ namespace ProjectEuler
 			uint j = 11;
 			while (primes < 11)
 			{
-				if (PrimeUtils.IsTruncatablePrime(j))
+				if (MathUtils.IsTruncatablePrime(j))
 				{
 					primes++;
 					sum += j;
@@ -743,7 +742,7 @@ namespace ProjectEuler
 		{
 			int largest = 0;
 			for (int x = 1; x < 7777777; x++)
-				if (MathUtils.IsPandigital(x, false) && PrimeUtils.IsPrime(x))
+				if (MathUtils.IsPandigital(x, false) && MathUtils.IsPrime(x))
 					if (x > largest)
 						largest = x;
 			return largest;
@@ -769,14 +768,13 @@ namespace ProjectEuler
 			return triangles;
 		}
 
-		// TODO
-		public BigInteger Problem43()
-		{
-			List<ulong> primes = new List<ulong>() { 2, 3, 5, 7, 11, 13, 17 };
+		//public BigInteger Problem43()
+		//{
+		//	List<ulong> primes = new List<ulong>() { 2, 3, 5, 7, 11, 13, 17 };
 
-			BigInteger result = 0;
-			foreach (string s in "0123456789".GetPermutations(""))
-			{
+		//	BigInteger result = 0;
+		//	foreach (string s in "0123456789".GetPermutations(""))
+		//	{
 				//Continue:
 				//if (!i.IsPandigital(true))
 				//	continue;
@@ -789,10 +787,10 @@ namespace ProjectEuler
 				//		goto Continue;
 				//	}
 
-				result += 1;
-			}
-			return result;
-		}
+		//		result += 1;
+		//	}
+		//	return result;
+		//}
 
 		public int Problem44()
 		{
@@ -836,7 +834,7 @@ namespace ProjectEuler
 		{
 			for (int i = 1488; i < 9999; i++)
 			{
-				if (!PrimeUtils.IsPrime(i))
+				if (!MathUtils.IsPrime(i))
 					continue;
 
 				string x = i.ToString();
@@ -846,14 +844,14 @@ namespace ProjectEuler
 				{
 					int yy = int.Parse(y);
 
-					if (i == yy || !PrimeUtils.IsPrime(yy))
+					if (i == yy || !MathUtils.IsPrime(yy))
 						continue;
 
 					foreach (string z in perms)
 					{
 						int zz = int.Parse(z);
 
-						if (zz == yy || !PrimeUtils.IsPrime(zz))
+						if (zz == yy || !MathUtils.IsPrime(zz))
 							continue;
 
 						if (zz - yy == yy - i && yy - i > 0)
@@ -876,11 +874,11 @@ namespace ProjectEuler
 			int prime = 2;
 			while (i < 1000000)
 			{
-				if (PrimeUtils.IsPrime(prime))
+				if (MathUtils.IsPrime(prime))
 					i += prime;
 				prime++;
 
-				if (i < 1000000 && PrimeUtils.IsPrime(i))
+				if (i < 1000000 && MathUtils.IsPrime(i))
 					answer = i;
 			}
 			return answer;
@@ -894,7 +892,7 @@ namespace ProjectEuler
 				Restart:
 				i++;
 				for (int j = 2; j < 6; j++)
-					if (!IntegerUtils.ContainsSameDigits(i, i * j))
+					if (!MathUtils.ContainsSameDigits(i, i * j))
 						goto Restart;
 				return i;
 			}
@@ -905,7 +903,7 @@ namespace ProjectEuler
 			int total = 0;
 			for (BigInteger i = 1; i < 101; i++)
 				for (BigInteger j = 1; j < i; j++)
-					if (BigIntegerUtils.Combinations(i, j) > 1000000)
+					if (Utils.MathUtils.Combinations(i, j) > 1000000)
 						total++;
 			return total;
 		}
@@ -914,7 +912,7 @@ namespace ProjectEuler
 		{
 			int lychrels = 0;
 			for (int i = 10; i < 10000; i++)
-				if (BigIntegerUtils.IsLychrel(i))
+				if (Utils.MathUtils.IsLychrel(i))
 					lychrels++;
 			return lychrels;
 		}
@@ -931,7 +929,7 @@ namespace ProjectEuler
 
 					double sum = 0;
 					for (int k = 0; k < r.ToString().Length; k++)
-						sum += BigIntegerUtils.DigitAt(r, k);
+						sum += Utils.MathUtils.DigitAt(r, k);
 					if (largest < sum)
 						largest = sum;
 				}
@@ -951,7 +949,7 @@ namespace ProjectEuler
 				double diagonals = grid * 2 - 1;
 				while (i < diagonals)
 				{
-					if (PrimeUtils.IsPrime(num) && i % 4 != 0)
+					if (MathUtils.IsPrime(num) && i % 4 != 0)
 						primes++;
 					i++;
 					num += multiplier;
@@ -1045,7 +1043,7 @@ namespace ProjectEuler
 			for (int i = 2; i < limit; i++)
 			{
 				divisors[0] = divisors[1];
-				divisors[1] = IntegerUtils.GetDivisorAmount(i + 1);
+				divisors[1] = MathUtils.GetDivisorAmount(i + 1);
 
 				if (divisors[0] == divisors[1])
 					result++;
@@ -1099,7 +1097,7 @@ namespace ProjectEuler
 					highestStr.Append(" + ");
 				}
 
-				return highestStr.ToString().TrimEnd("+ ") + " = " + result;
+				return highestStr.ToString().TrimEnd("+ ".ToCharArray()) + " = " + result;
 			}
 		}
 	}

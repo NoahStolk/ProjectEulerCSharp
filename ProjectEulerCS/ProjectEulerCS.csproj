@@ -7,8 +7,8 @@
     <ProjectGuid>{01A8D120-AE38-4271-8C92-4C3395C4EE28}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectEuler</RootNamespace>
-    <AssemblyName>ProjectEuler</AssemblyName>
+    <RootNamespace>ProjectEulerCS</RootNamespace>
+    <AssemblyName>ProjectEulerCS</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,12 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Utils\BigIntegerUtils.cs" />
+    <Compile Include="Utils\MathUtils.cs" />
     <Compile Include="Problems.cs" />
     <Compile Include="Utils\ProblemUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ResourceUtils.cs" />
+    <Compile Include="Utils\RomanUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -86,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\NetBase\NetBase\NetBase.csproj">
-      <Project>{25f631b5-133b-4136-a995-040072fc405f}</Project>
+      <Project>{25F631B5-133B-4136-A995-040072FC405F}</Project>
       <Name>NetBase</Name>
     </ProjectReference>
   </ItemGroup>

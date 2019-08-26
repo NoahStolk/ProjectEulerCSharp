@@ -1,12 +1,12 @@
 ﻿using NetBase.Extensions;
-using NetBase.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using NetBase.Console;
 
-namespace ProjectEuler
+namespace ProjectEulerCS
 {
 	public static class Program
 	{

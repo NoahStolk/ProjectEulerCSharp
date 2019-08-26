@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectEuler.Utils
+namespace ProjectEulerCS.Utils
 {
 	public static class ProblemUtils
 	{

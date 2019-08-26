@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace ProjectEuler.Utils
+namespace ProjectEulerCS.Utils
 {
 	public static class ResourceUtils
 	{
