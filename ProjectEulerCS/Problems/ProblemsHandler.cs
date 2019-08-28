@@ -813,13 +813,13 @@ namespace ProjectEulerCS.Problems
 					double fraction2;
 
 					if (MathUtils.DigitAt(j, 0) == MathUtils.DigitAt(i, 0))
-						fraction2 = MathUtils.DigitAt(j, 1) / (float)MathUtils.DigitAt(i, 1);
+						fraction2 = MathUtils.DigitAt(j, 1) / (double)MathUtils.DigitAt(i, 1);
 					else if (MathUtils.DigitAt(j, 1) == MathUtils.DigitAt(i, 0))
-						fraction2 = MathUtils.DigitAt(j, 0) / (float)MathUtils.DigitAt(i, 1);
+						fraction2 = MathUtils.DigitAt(j, 0) / (double)MathUtils.DigitAt(i, 1);
 					else if (MathUtils.DigitAt(j, 0) == MathUtils.DigitAt(i, 1))
-						fraction2 = MathUtils.DigitAt(j, 1) / (float)MathUtils.DigitAt(i, 0);
+						fraction2 = MathUtils.DigitAt(j, 1) / (double)MathUtils.DigitAt(i, 0);
 					else if (MathUtils.DigitAt(j, 1) == MathUtils.DigitAt(i, 1))
-						fraction2 = MathUtils.DigitAt(j, 0) / (float)MathUtils.DigitAt(i, 0);
+						fraction2 = MathUtils.DigitAt(j, 0) / (double)MathUtils.DigitAt(i, 0);
 					else continue;
 
 					if (fraction1 == fraction2)
