@@ -1,6 +1,7 @@
 ﻿using NetBase.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading;
@@ -10,8 +11,6 @@ namespace ProjectEulerCS.Utils
 	public static class MathUtils
 	{
 		private static readonly string decimalSeparator = Thread.CurrentThread.CurrentUICulture.NumberFormat.NumberDecimalSeparator;
-
-		private static readonly int[] oneDigitPrimes = new int[4] { 2, 3, 5, 7 };
 
 		public static bool IsPrime(long number)
 		{
@@ -29,59 +28,15 @@ namespace ProjectEulerCS.Utils
 			return true;
 		}
 
-		public static List<long> GetPrimeList(long max)
+		public static bool IsTruncatablePrime(long number)
 		{
-			List<long> list = new List<long>();
-			for (long i = 2; i < max; i++)
-				if (IsPrime(i))
-					list.Add(i);
-			return list;
-		}
-
-		public static bool IsTruncatablePrime(long a)
-		{
-			if (a < 10)
-				return false;
-
-			string s = a.ToString();
-			int len = s.Length;
-
-			for (int i = 0; i < oneDigitPrimes.Length; i++)
-				if (int.Parse(s[len - 1].ToString()) == oneDigitPrimes[i])
-					goto Continue1;
-			return false;
-
-		Continue1:
-			for (int i = 0; i < oneDigitPrimes.Length; i++)
-				if (int.Parse(s[0].ToString()) == oneDigitPrimes[i])
-					goto Continue2;
-			return false;
-
-		Continue2:
-			long b = a;
-			s = b.ToString();
-			len = s.Length;
-			while (len > 1)
-				if (IsPrime(b))
-					b = long.Parse(s.Substring(0, --len));
-				else
+			string numStr = number.ToString();
+			int length = numStr.Length;
+			for (int i = length - 1; i >= 0; i--)
+				if (!IsPrime(int.Parse(numStr.Substring(0, length - i))) || !IsPrime(int.Parse(numStr.Substring(i, length - i))))
 					return false;
 
-			b = a;
-			s = b.ToString();
-			len = s.Length;
-			int x = 0;
-			while (x < len - 1)
-				if (IsPrime(b))
-					b = long.Parse(s.Substring(++x, len - x));
-				else
-					return false;
-
-			for (int i = 0; i < oneDigitPrimes.Length; i++)
-				if (b == oneDigitPrimes[i])
-					return true;
-
-			return false;
+			return true;
 		}
 
 		public static bool IsCircularPrime(long a)

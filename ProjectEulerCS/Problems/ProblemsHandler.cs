@@ -108,41 +108,32 @@ namespace ProjectEulerCS.Problems
 		[Problem(ProblemState.Solved)]
 		public long Problem005()
 		{
-			int intCount = 20;
-
-			long x = intCount;
-			for (; ; )
+			for (long i = 2520; ; i += 20)
 			{
-			Restart:
-				for (int y = 1; y <= intCount; y++)
+				bool found = true;
+				for (int y = 1; y <= 20; y++)
 				{
-					if (x % y != 0)
+					if (i % y != 0)
 					{
-						x += intCount;
-						goto Restart;
+						found = false;
+						break;
 					}
 				}
-
-				return x;
+				if (found)
+					return i;
 			}
 		}
 
 		[Problem(ProblemState.Solved)]
 		public int Problem006()
 		{
-			int x = 100;
-			int a = 0;
-			int b = 0;
-
-			for (int i = 1; i <= x; i++)
+			int a = 0, b = 0;
+			for (int i = 1; i <= 100; i++)
 			{
-				a += (int)Math.Pow(i, 2);
+				a += i * i;
 				b += i;
 			}
-
-			b = (int)Math.Pow(b, 2);
-
-			return b - a;
+			return b * b - a;
 		}
 
 		[Problem(ProblemState.Solved)]
@@ -191,7 +182,7 @@ namespace ProjectEulerCS.Problems
 
 			for (int i = 1; i < num / 2; i++)
 			{
-				double a = (Math.Pow(num, 2) / 2 - num * i) / (num - i);
+				double a = (num * num / 2.0 - num * i) / (num - i);
 				if (a % 1 == 0)
 					ans = (long)(a * i * (num - a - i));
 			}
@@ -366,7 +357,7 @@ namespace ProjectEulerCS.Problems
 		{
 			int letters = 0;
 
-			for (int x = 1; x <= Math.Pow(10, 3); x++)
+			for (int x = 1; x <= 1000; x++)
 				letters += GetWord(x).Length;
 
 			return letters;
@@ -623,7 +614,7 @@ namespace ProjectEulerCS.Problems
 			foreach (string permutation in digits.GetPermutations(""))
 			{
 				i++;
-				if (i == Math.Pow(10, 6))
+				if (i == 1000000)
 					return permutation;
 			}
 
@@ -1222,7 +1213,7 @@ namespace ProjectEulerCS.Problems
 		[Problem(ProblemState.TooSlow)] // 4:36.93
 		public int Problem179()
 		{
-			int limit = (int)Math.Pow(10, 7);
+			int limit = 10000000;
 			int result = 0;
 
 			int[] divisors = new int[2] { 0, 2 };
