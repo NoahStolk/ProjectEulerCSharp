@@ -69,33 +69,37 @@ namespace ProjectEulerCS.Problems
 		[Problem(ProblemState.Solved)]
 		public int Problem004()
 		{
-			//int largest = 0;
-			//for (int i = 100; i < 1000; i++)
-			//{
-			//	for (int j = 100; j < 1000; j++)
-			//	{
-			//		int x = i * j;
+			int largest = 0;
 
-			//		if (x.ToString() == x.ToString().Reverse())
-			//			if (x > largest)
-			//				largest = x;
-			//	}
-			//}
-
-			//return largest;
-
-			for (int i = 999; i >= 100; i--)
+			// The square root of 100000 (minimum value that contains 6 digits) floored is 316, so start from there.
+			for (int i = 316; i < 1000; i++)
 			{
-				for (int j = 999; j >= 100; j--)
+				for (int j = 316; j < 1000; j++)
 				{
 					int x = i * j;
+					if (x < 100000 || x > 999999) // Result needs to contain 6 digits.
+						continue;
 
-					if (x.ToString() == x.ToString().Reverse())
-						return x;
+					string str = x.ToString();
+
+					bool breakOuter = false;
+					for (int k = 0; k < 3; k++)
+					{
+						if (str[k] != str[6 - k - 1])
+						{
+							breakOuter = true;
+							break;
+						}
+					}
+					if (breakOuter)
+						continue;
+
+					if (x > largest)
+						largest = x;
 				}
 			}
 
-			return 0;
+			return largest;
 		}
 
 		[Problem(ProblemState.Solved)]
