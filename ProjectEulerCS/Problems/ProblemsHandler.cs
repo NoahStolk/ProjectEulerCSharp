@@ -85,16 +85,16 @@ namespace ProjectEulerCS.Problems
 
 					string str = x.ToString();
 
-					bool breakOuter = false;
+					bool isPalindrome = true;
 					for (int k = 0; k < 3; k++)
 					{
 						if (str[k] != str[5 - k])
 						{
-							breakOuter = true;
+							isPalindrome = false;
 							break;
 						}
 					}
-					if (breakOuter)
+					if (!isPalindrome)
 						continue;
 
 					if (x > largest)
@@ -797,7 +797,7 @@ namespace ProjectEulerCS.Problems
 			return total;
 		}
 
-		[Problem(ProblemState.InProgress)]
+		[Problem(ProblemState.Solved)]
 		public double Problem033()
 		{
 			List<double> fractions = new List<double>();
@@ -810,16 +810,17 @@ namespace ProjectEulerCS.Problems
 				for (double j = 10; j < i; j++)
 				{
 					double fraction1 = j / i;
-					double fraction2 = 0;
+					double fraction2;
 
 					if (MathUtils.DigitAt(j, 0) == MathUtils.DigitAt(i, 0))
-						fraction2 = MathUtils.DigitAt(j, 1) / MathUtils.DigitAt(i, 1);
+						fraction2 = MathUtils.DigitAt(j, 1) / (float)MathUtils.DigitAt(i, 1);
 					else if (MathUtils.DigitAt(j, 1) == MathUtils.DigitAt(i, 0))
-						fraction2 = MathUtils.DigitAt(j, 0) / MathUtils.DigitAt(i, 1);
+						fraction2 = MathUtils.DigitAt(j, 0) / (float)MathUtils.DigitAt(i, 1);
 					else if (MathUtils.DigitAt(j, 0) == MathUtils.DigitAt(i, 1))
-						fraction2 = MathUtils.DigitAt(j, 1) / MathUtils.DigitAt(i, 0);
+						fraction2 = MathUtils.DigitAt(j, 1) / (float)MathUtils.DigitAt(i, 0);
 					else if (MathUtils.DigitAt(j, 1) == MathUtils.DigitAt(i, 1))
-						fraction2 = MathUtils.DigitAt(j, 0) / MathUtils.DigitAt(i, 0);
+						fraction2 = MathUtils.DigitAt(j, 0) / (float)MathUtils.DigitAt(i, 0);
+					else continue;
 
 					if (fraction1 == fraction2)
 						fractions.Add(fraction1);
