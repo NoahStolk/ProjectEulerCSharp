@@ -30,6 +30,9 @@ namespace ProjectEulerCS.Utils
 
 		public static bool IsTruncatablePrime(long number)
 		{
+			if (number < 10)
+				return false;
+
 			string numStr = number.ToString();
 			int length = numStr.Length;
 			for (int i = length - 1; i >= 0; i--)
@@ -39,12 +42,12 @@ namespace ProjectEulerCS.Utils
 			return true;
 		}
 
-		public static bool IsCircularPrime(long a)
+		public static bool IsCircularPrime(long number)
 		{
-			if (!IsPrime(a))
+			if (!IsPrime(number))
 				return false;
 
-			string r = a.ToString();
+			string r = number.ToString();
 			for (int i = 0; i < r.Length; i++)
 			{
 				r = r.Substring(1, r.Length - 1) + r[0];

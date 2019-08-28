@@ -193,34 +193,36 @@ namespace ProjectEulerCS.Problems
 		[Problem(ProblemState.Solved)]
 		public long Problem010()
 		{
-			int[] primes = new int[256];
 			int primeIndex = 0;
-			long total = -1;
-
-			for (int i = 3; i < 2000000; i += 2)
+			int[] primes = new int[256];
+			primes[0] = 2;
+			primes[1] = 3;
+			primes[2] = 5;
+			primes[3] = 7;
+			long sum = 17;
+			for (int i = 11; i < 2000000; i += 2)
 			{
-			RestartOuter:
+				bool earlyReject = false;
 				for (int j = 0; j < primeIndex; j++)
 				{
 					if (i % primes[j] == 0)
 					{
-						i += 2;
-						goto RestartOuter;
+						earlyReject = true;
+						break;
 					}
 				}
+				if (earlyReject)
+					continue;
 
 				if (MathUtils.IsPrime(i))
 				{
-					total += i;
 					if (primeIndex < primes.Length)
-					{
-						primes[primeIndex] = i;
-						primeIndex++;
-					}
+						primes[primeIndex++] = i;
+					sum += i;
 				}
 			}
 
-			return total;
+			return sum;
 		}
 
 		[Problem(ProblemState.Solved)]
