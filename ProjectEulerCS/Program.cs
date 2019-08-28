@@ -5,14 +5,39 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using NetBase.Console;
+using System.Text.RegularExpressions;
+using System.Text;
+using ProjectEulerCS.Problems;
 
 namespace ProjectEulerCS
 {
 	public static class Program
 	{
+		private static string FormatColumns(params string[] columnNames)
+		{
+			StringBuilder format = new StringBuilder();
+			for (int i = 0; i < columnNames.Length; i++)
+				format.Append($"{{{i}, -15}}");
+			return string.Format(format.ToString(), columnNames);
+		}
+
+		private static ConsoleColor GetColor(ProblemState state)
+		{
+			switch (state)
+			{
+				case ProblemState.Solved: return ConsoleColor.Green;
+				case ProblemState.TooSlow: return ConsoleColor.Magenta;
+				case ProblemState.InProgress: return ConsoleColor.DarkYellow;
+				default: return ConsoleColor.White;
+			}
+		}
+
 		public static void Main()
 		{
-			ConsoleUtils.WriteLineColor("Project Euler - C#", ConsoleColor.Green);
+			Console.SetWindowSize(192, 64);
+
+			ConsoleUtils.WriteBanner("Project Euler - C#", 4, 2, '-', ConsoleColor.DarkBlue, ConsoleColor.Green);
+			Console.WriteLine();
 			ConsoleUtils.WriteLineColor("Enter 'help' for a list of commands.", ConsoleColor.Cyan);
 			Console.WriteLine();
 
@@ -26,19 +51,42 @@ namespace ProjectEulerCS
 				switch (input)
 				{
 					case "help":
-						ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", "Command", "Description"), ConsoleColor.Magenta);
-						ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", "help", "Shows the list of commands."), ConsoleColor.Cyan);
-						ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", "progress", "Shows all available problems."), ConsoleColor.Cyan);
-						ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", "exit", "Exits the program."), ConsoleColor.Cyan);
-						ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", "x", "Solves problem x."), ConsoleColor.Cyan);
-						ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", "x,y,z", "Solves problem x, y, and z."), ConsoleColor.Cyan);
+						ConsoleUtils.WriteLineColor(FormatColumns("Command", "Description"), ConsoleColor.Magenta);
+						ConsoleUtils.WriteLineColor(FormatColumns("help", "Shows the list of commands."), ConsoleColor.Cyan);
+						ConsoleUtils.WriteLineColor(FormatColumns("progress", "Shows all available problems."), ConsoleColor.Cyan);
+						ConsoleUtils.WriteLineColor(FormatColumns("exit", "Exits the program."), ConsoleColor.Cyan);
+						ConsoleUtils.WriteLineColor(FormatColumns("x", "Solves problem x."), ConsoleColor.Cyan);
+						ConsoleUtils.WriteLineColor(FormatColumns("x,y,z", "Solves problem x, y, and z."), ConsoleColor.Cyan);
 						Console.WriteLine();
 						continue;
 					case "progress":
-						ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", "Problem", "Return type"), ConsoleColor.Magenta);
-						foreach (MethodInfo method in typeof(Problems).GetMethods())
-							if (method.Name.Contains("Problem"))
-								ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", method.Name.Numeric(), method.ReturnType), ConsoleColor.Cyan);
+						foreach (ProblemState state in (ProblemState[])Enum.GetValues(typeof(ProblemState)))
+							ConsoleUtils.WriteLineColor($"\t\t{state}", GetColor(state));
+						ConsoleUtils.WriteLineColor("\t\tUnsolved", ConsoleColor.White);
+						Console.WriteLine();
+
+						Dictionary<int, ProblemState> problems = new Dictionary<int, ProblemState>();
+						foreach (MethodInfo method in typeof(ProblemsHandler).GetMethods())
+							if (int.TryParse(method.Name.Numeric(), out int problem))
+								problems.Add(problem, method.GetCustomAttribute<Problem>().State);
+
+						for (int i = 0; i < Math.Ceiling((double)problems.Keys.Max() / 10); i++)
+						{
+							for (int j = 0; j < 10; j++)
+							{
+								int problem = i * 10 + j + 1;
+								if (problems.Keys.Contains(problem))
+								{
+									ProblemState state = problems[problem];
+									ConsoleUtils.WriteColor($"{problem.ToString("D3")} ", GetColor(state));
+								}
+								else
+								{
+									ConsoleUtils.WriteColor($"{problem.ToString("D3")} ", ConsoleColor.White);
+								}
+							}
+							Console.WriteLine();
+						}
 
 						Console.WriteLine();
 						continue;
@@ -47,40 +95,43 @@ namespace ProjectEulerCS
 						break;
 				}
 
-				string[] problemsInput = input.Split(',').Distinct().ToArray();
+				int[] problemsInput = Array.ConvertAll(
+					Regex.Replace(input, "[^0-9,]", "") // Remove all characters except numbers and commas.
+						.Split(',') // Split by comma.
+						.Distinct() // Remove duplicates.
+						.Where(s => s.Length != 0) // Remove empty strings.
+						.ToArray(), s => int.Parse(s)); // Parse all.
 
-				Dictionary<string, MethodInfo> problemMethods = new Dictionary<string, MethodInfo>();
+				Dictionary<int, MethodInfo> problemMethods = new Dictionary<int, MethodInfo>();
 				for (int i = 0; i < problemsInput.Length; i++)
-					problemMethods.Add(problemsInput[i], typeof(Problems).GetMethod($"Problem{problemsInput[i]}"));
+					problemMethods.Add(problemsInput[i], typeof(ProblemsHandler).GetMethod($"Problem{problemsInput[i].ToString("D3")}"));
 
-				ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}{2, -15}", "Problem", "Answer", "Time"), ConsoleColor.Magenta);
+				ConsoleUtils.WriteLineColor(FormatColumns("Problem", "Answer", "Time"), ConsoleColor.Magenta);
 
-				foreach (KeyValuePair<string, MethodInfo> kvp in problemMethods)
-				{
+				foreach (KeyValuePair<int, MethodInfo> kvp in problemMethods)
 					ExecuteProblem(kvp);
-				}
 
 				Console.WriteLine();
 			}
 		}
 
-		private static void ExecuteProblem(KeyValuePair<string, MethodInfo> kvp)
+		private static void ExecuteProblem(KeyValuePair<int, MethodInfo> kvp)
 		{
 			try
 			{
 				Stopwatch stopwatch = new Stopwatch();
 				stopwatch.Start();
 
-				ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}{2, -15}", kvp.Value.Name.Numeric(), kvp.Value.Invoke(Problems.Instance, null), stopwatch.Elapsed), ConsoleColor.White);
+				ConsoleUtils.WriteLineColor(FormatColumns(kvp.Value.Name.Numeric(), kvp.Value.Invoke(ProblemsHandler.Instance, null).ToString(), stopwatch.Elapsed.ToString()), ConsoleColor.White);
 			}
 			catch (NullReferenceException)
 			{
-				ConsoleUtils.WriteLineColor(string.Format("{0, -15}{1, -15}", kvp.Key, "Problem not found."), ConsoleColor.Red);
+				ConsoleUtils.WriteLineColor(FormatColumns(kvp.Key.ToString("D3"), "Problem not found."), ConsoleColor.Red);
 			}
 			catch (Exception ex)
 			{
 				ConsoleUtils.WriteLineColor("FATAL ERROR", ConsoleColor.Red);
-				ConsoleUtils.WriteLineColor(ex.AllInnerExceptionMessages("\n===\n"), ConsoleColor.Red);
+				ConsoleUtils.WriteLineColor(ex.AllInnerExceptionMessages("\n\n\t"), ConsoleColor.Red);
 			}
 		}
 	}

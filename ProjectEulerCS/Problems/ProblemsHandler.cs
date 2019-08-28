@@ -7,18 +7,19 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace ProjectEulerCS
+namespace ProjectEulerCS.Problems
 {
-	public sealed class Problems
+	public sealed class ProblemsHandler
 	{
-		private static readonly Lazy<Problems> lazy = new Lazy<Problems>(() => new Problems());
-		public static Problems Instance => lazy.Value;
+		private static readonly Lazy<ProblemsHandler> lazy = new Lazy<ProblemsHandler>(() => new ProblemsHandler());
+		public static ProblemsHandler Instance => lazy.Value;
 
-		private Problems()
+		private ProblemsHandler()
 		{
 		}
 
-		public int Problem1()
+		[Problem(ProblemState.Solved)]
+		public int Problem001()
 		{
 			int result = 0;
 			for (int i = 3; i < 1000; i++)
@@ -27,7 +28,8 @@ namespace ProjectEulerCS
 			return result;
 		}
 
-		public int Problem2()
+		[Problem(ProblemState.Solved)]
+		public int Problem002()
 		{
 			int a, b, c, d;
 			a = 0;
@@ -47,7 +49,8 @@ namespace ProjectEulerCS
 			return d;
 		}
 
-		public int Problem3()
+		[Problem(ProblemState.Solved)]
+		public int Problem003()
 		{
 			long a = 600851475143;
 			int b = 2;
@@ -63,32 +66,47 @@ namespace ProjectEulerCS
 			return b;
 		}
 
-		public int Problem4()
+		[Problem(ProblemState.Solved)]
+		public int Problem004()
 		{
-			int largest = 0;
-			for (int i = 100; i < 1000; i++)
+			//int largest = 0;
+			//for (int i = 100; i < 1000; i++)
+			//{
+			//	for (int j = 100; j < 1000; j++)
+			//	{
+			//		int x = i * j;
+
+			//		if (x.ToString() == x.ToString().Reverse())
+			//			if (x > largest)
+			//				largest = x;
+			//	}
+			//}
+
+			//return largest;
+
+			for (int i = 999; i >= 100; i--)
 			{
-				for (int j = 100; j < 1000; j++)
+				for (int j = 999; j >= 100; j--)
 				{
 					int x = i * j;
 
 					if (x.ToString() == x.ToString().Reverse())
-						if (x > largest)
-							largest = x;
+						return x;
 				}
 			}
 
-			return largest;
+			return 0;
 		}
 
-		public long Problem5()
+		[Problem(ProblemState.Solved)]
+		public long Problem005()
 		{
 			int intCount = 20;
 
 			long x = intCount;
 			for (; ; )
 			{
-				Restart:
+			Restart:
 				for (int y = 1; y <= intCount; y++)
 				{
 					if (x % y != 0)
@@ -102,7 +120,8 @@ namespace ProjectEulerCS
 			}
 		}
 
-		public int Problem6()
+		[Problem(ProblemState.Solved)]
+		public int Problem006()
 		{
 			int x = 100;
 			int a = 0;
@@ -119,7 +138,8 @@ namespace ProjectEulerCS
 			return b - a;
 		}
 
-		public int Problem7()
+		[Problem(ProblemState.Solved)]
+		public int Problem007()
 		{
 			int primes = 1;
 			int number = 3;
@@ -135,7 +155,8 @@ namespace ProjectEulerCS
 			}
 		}
 
-		public long Problem8()
+		[Problem(ProblemState.Solved)]
+		public long Problem008()
 		{
 			string digits = File.ReadAllText(Path.Combine("Resources", "008.txt"));
 
@@ -155,7 +176,8 @@ namespace ProjectEulerCS
 			return highest;
 		}
 
-		public long Problem9()
+		[Problem(ProblemState.Solved)]
+		public long Problem009()
 		{
 			int num = 1000;
 			long ans = 0;
@@ -170,7 +192,8 @@ namespace ProjectEulerCS
 			return ans;
 		}
 
-		public long Problem10()
+		[Problem(ProblemState.Solved)]
+		public long Problem010()
 		{
 			int[] primes = new int[256];
 			int primeIndex = 0;
@@ -178,7 +201,7 @@ namespace ProjectEulerCS
 
 			for (int i = 3; i < 2000000; i += 2)
 			{
-				RestartOuter:
+			RestartOuter:
 				for (int j = 0; j < primeIndex; j++)
 				{
 					if (i % primes[j] == 0)
@@ -202,7 +225,8 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public int Problem11()
+		[Problem(ProblemState.Solved)]
+		public int Problem011()
 		{
 			int w = 20;
 			int h = 20;
@@ -246,7 +270,8 @@ namespace ProjectEulerCS
 			return highest;
 		}
 
-		public int Problem12()
+		[Problem(ProblemState.Solved)]
+		public int Problem012()
 		{
 			int n = 2;
 			int triangle = 3;
@@ -263,7 +288,8 @@ namespace ProjectEulerCS
 			return triangle;
 		}
 
-		public string Problem13()
+		[Problem(ProblemState.Solved)]
+		public string Problem013()
 		{
 			string[] digits = File.ReadAllLines(Path.Combine("Resources", "013.txt"));
 			string total = "0";
@@ -273,7 +299,8 @@ namespace ProjectEulerCS
 			return total.Substring(0, 10);
 		}
 
-		public int Problem14()
+		[Problem(ProblemState.Solved)]
+		public int Problem014()
 		{
 			int highestX = 0;
 			int highestZ = 0;
@@ -307,14 +334,16 @@ namespace ProjectEulerCS
 			return highestX;
 		}
 
-		public BigInteger Problem15()
+		[Problem(ProblemState.Solved)]
+		public BigInteger Problem015()
 		{
 			BigInteger grid = 20;
 
 			return MathUtils.Factorial(grid * 2) / MathUtils.Factorial(grid) / MathUtils.Factorial(grid);
 		}
 
-		public int Problem16()
+		[Problem(ProblemState.Solved)]
+		public int Problem016()
 		{
 			List<int> digits = MathUtils.PowersOfTwo(1000);
 
@@ -325,17 +354,131 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public int Problem17()
+		[Problem(ProblemState.Solved)]
+		public int Problem017()
 		{
 			int letters = 0;
 
 			for (int x = 1; x <= Math.Pow(10, 3); x++)
-				letters += ProblemUtils.GetWord(x).Length;
+				letters += GetWord(x).Length;
 
 			return letters;
+
+			StringBuilder GetWord(int n)
+			{
+				StringBuilder word = new StringBuilder();
+
+				if (n.ToString().Length == 4)
+				{
+					word.Append("onethousand");
+					n = int.Parse(n.ToString().Substring(1));
+				}
+
+				if (n.ToString().Length == 3)
+				{
+					if (n >= 900)
+						word.Append("nine");
+					else if (n >= 800)
+						word.Append("eight");
+					else if (n >= 700)
+						word.Append("seven");
+					else if (n >= 600)
+						word.Append("six");
+					else if (n >= 500)
+						word.Append("five");
+					else if (n >= 400)
+						word.Append("four");
+					else if (n >= 300)
+						word.Append("three");
+					else if (n >= 200)
+						word.Append("two");
+					else
+						word.Append("one");
+
+					if (n % 100 == 0)
+						word.Append("hundred");
+					else
+						word.Append("hundredand");
+
+					n = int.Parse(n.ToString().Substring(1));
+				}
+
+				if (n.ToString().Length == 2)
+				{
+					if (n >= 20)
+					{
+						if (n >= 90)
+							word.Append("ninety");
+						else if (n >= 80)
+							word.Append("eighty");
+						else if (n >= 70)
+							word.Append("seventy");
+						else if (n >= 60)
+							word.Append("sixty");
+						else if (n >= 50)
+							word.Append("fifty");
+						else if (n >= 40)
+							word.Append("forty");
+						else if (n >= 30)
+							word.Append("thirty");
+						else if (n >= 20)
+							word.Append("twenty");
+						n = int.Parse(n.ToString().Substring(1));
+					}
+					else
+					{
+						if (n == 19)
+							word.Append("nineteen");
+						else if (n == 18)
+							word.Append("eighteen");
+						else if (n == 17)
+							word.Append("seventeen");
+						else if (n == 16)
+							word.Append("sixteen");
+						else if (n == 15)
+							word.Append("fifteen");
+						else if (n == 14)
+							word.Append("fourteen");
+						else if (n == 13)
+							word.Append("thirteen");
+						else if (n == 12)
+							word.Append("twelve");
+						else if (n == 11)
+							word.Append("eleven");
+						else if (n == 10)
+							word.Append("ten");
+						n = 0;
+					}
+				}
+
+				if (n.ToString().Length == 1)
+				{
+					if (n == 9)
+						word.Append("nine");
+					if (n == 8)
+						word.Append("eight");
+					if (n == 7)
+						word.Append("seven");
+					if (n == 6)
+						word.Append("six");
+					if (n == 5)
+						word.Append("five");
+					if (n == 4)
+						word.Append("four");
+					if (n == 3)
+						word.Append("three");
+					if (n == 2)
+						word.Append("two");
+					if (n == 1)
+						word.Append("one");
+				}
+
+				return word;
+			}
 		}
 
-		public int Problem18()
+		[Problem(ProblemState.Solved)]
+		public int Problem018()
 		{
 			int[][] matrix = ResourceUtils.GenerateMatrix(18);
 
@@ -353,7 +496,8 @@ namespace ProjectEulerCS
 			return matrix[0][0];
 		}
 
-		public int Problem19()
+		[Problem(ProblemState.Solved)]
+		public int Problem019()
 		{
 			int s = 0;
 			for (int i = 1901; i < 2001; i++)
@@ -363,7 +507,8 @@ namespace ProjectEulerCS
 			return s;
 		}
 
-		public BigInteger Problem20()
+		[Problem(ProblemState.Solved)]
+		public BigInteger Problem020()
 		{
 			int number = 100;
 			BigInteger total = 1;
@@ -385,7 +530,8 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public int Problem21()
+		[Problem(ProblemState.Solved)]
+		public int Problem021()
 		{
 			int t = 0;
 
@@ -409,7 +555,8 @@ namespace ProjectEulerCS
 			return t;
 		}
 
-		public int Problem22()
+		[Problem(ProblemState.Solved)]
+		public int Problem022()
 		{
 			int totalScore = 0;
 			string text = File.ReadAllText(Path.Combine("Resources", "022.txt"));
@@ -431,7 +578,8 @@ namespace ProjectEulerCS
 			return totalScore;
 		}
 
-		public int Problem23()
+		[Problem(ProblemState.TooSlow)] // 3:33.20
+		public int Problem023()
 		{
 			int max = 28124;
 
@@ -459,7 +607,8 @@ namespace ProjectEulerCS
 			return result;
 		}
 
-		public string Problem24()
+		[Problem(ProblemState.Solved)]
+		public string Problem024()
 		{
 			string digits = "0123456789";
 
@@ -474,7 +623,8 @@ namespace ProjectEulerCS
 			return "";
 		}
 
-		public int Problem25()
+		[Problem(ProblemState.Solved)]
+		public int Problem025()
 		{
 			string a = "0";
 			string b = "1";
@@ -492,13 +642,14 @@ namespace ProjectEulerCS
 			return d;
 		}
 
-		public int Problem26()
+		[Problem(ProblemState.Solved)]
+		public int Problem026()
 		{
 			int longest = 0;
 			int hasLongest = 0;
 			for (int i = 2; i < 1000; i++)
 			{
-				Restart:
+			Restart:
 				BigInteger d = BigInteger.Pow(10, 2000) / i;
 				string s = d.ToString();
 
@@ -530,7 +681,8 @@ namespace ProjectEulerCS
 			return hasLongest;
 		}
 
-		public int Problem28()
+		[Problem(ProblemState.Solved)]
+		public int Problem028()
 		{
 			int grid = 1001;
 			int diagonals = grid * 2 - 1;
@@ -552,7 +704,8 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public int Problem29()
+		[Problem(ProblemState.Solved)]
+		public int Problem029()
 		{
 			List<double> sequence = new List<double>();
 
@@ -565,7 +718,8 @@ namespace ProjectEulerCS
 			return sequence.Count;
 		}
 
-		public int Problem30()
+		[Problem(ProblemState.Solved)]
+		public int Problem030()
 		{
 			int t = 0;
 
@@ -581,7 +735,8 @@ namespace ProjectEulerCS
 			return t;
 		}
 
-		public int Problem31()
+		[Problem(ProblemState.Solved)]
+		public int Problem031()
 		{
 			int a = 200;
 			int b = 100;
@@ -607,7 +762,8 @@ namespace ProjectEulerCS
 			return count;
 		}
 
-		public int Problem32()
+		[Problem(ProblemState.Solved)]
+		public int Problem032()
 		{
 			List<int> answers = new List<int>();
 
@@ -634,7 +790,8 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public double Problem33()
+		[Problem(ProblemState.InProgress)]
+		public double Problem033()
 		{
 			List<double> fractions = new List<double>();
 
@@ -668,7 +825,8 @@ namespace ProjectEulerCS
 			return Math.Round(1 / final);
 		}
 
-		public int Problem34()
+		[Problem(ProblemState.Solved)]
+		public int Problem034()
 		{
 			int total = 0;
 
@@ -684,7 +842,8 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public int Problem35()
+		[Problem(ProblemState.Solved)]
+		public int Problem035()
 		{
 			int total = 0;
 			for (uint i = 0; i < 1000000; i++)
@@ -695,7 +854,8 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public int Problem36()
+		[Problem(ProblemState.Solved)]
+		public int Problem036()
 		{
 			int total = 0;
 			for (int i = 0; i < 1000000; i++)
@@ -706,7 +866,8 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public uint Problem37()
+		[Problem(ProblemState.Solved)]
+		public uint Problem037()
 		{
 			uint sum = 0;
 			int primes = 0;
@@ -725,7 +886,8 @@ namespace ProjectEulerCS
 			return sum;
 		}
 
-		public int Problem40()
+		[Problem(ProblemState.Solved)]
+		public int Problem040()
 		{
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < 1000000; i++)
@@ -738,7 +900,8 @@ namespace ProjectEulerCS
 			return result;
 		}
 
-		public int Problem41()
+		[Problem(ProblemState.Solved)]
+		public int Problem041()
 		{
 			int largest = 0;
 			for (int x = 1; x < 7777777; x++)
@@ -748,7 +911,8 @@ namespace ProjectEulerCS
 			return largest;
 		}
 
-		public int Problem42()
+		[Problem(ProblemState.Solved)]
+		public int Problem042()
 		{
 			string text = File.ReadAllText(Path.Combine("Resources", "042.txt"));
 			string[] words = text.Replace("\"", "").Split(',');
@@ -768,31 +932,34 @@ namespace ProjectEulerCS
 			return triangles;
 		}
 
-		//public BigInteger Problem43()
-		//{
-		//	List<ulong> primes = new List<ulong>() { 2, 3, 5, 7, 11, 13, 17 };
+		[Problem(ProblemState.InProgress)]
+		public BigInteger Problem043()
+		{
+			//List<ulong> primes = new List<ulong>() { 2, 3, 5, 7, 11, 13, 17 };
 
-		//	BigInteger result = 0;
-		//	foreach (string s in "0123456789".GetPermutations(""))
-		//	{
-				//Continue:
-				//if (!i.IsPandigital(true))
-				//	continue;
+			//BigInteger result = 0;
+			//foreach (string s in "0123456789".GetPermutations(""))
+			//{
+			//Continue:
+			//	if (!i.IsPandigital(true))
+			//		continue;
 
-				//string s = i.ToString();
-				//for (int j = 0; j < 6; j++)
-				//	if (ulong.Parse(s.Substring(j + 2, 3)) % primes[j] != 0)
-				//	{
-				//		i += 9;
-				//		goto Continue;
-				//	}
+			//	string s = i.ToString();
+			//	for (int j = 0; j < 6; j++)
+			//		if (ulong.Parse(s.Substring(j + 2, 3)) % primes[j] != 0)
+			//		{
+			//			i += 9;
+			//			goto Continue;
+			//		}
 
-		//		result += 1;
-		//	}
-		//	return result;
-		//}
+			//	result += 1;
+			//}
+			//return result;
+			return 0;
+		}
 
-		public int Problem44()
+		[Problem(ProblemState.Solved)]
+		public int Problem044()
 		{
 			for (int i = 1; i < 10001; i++)
 			{
@@ -807,7 +974,8 @@ namespace ProjectEulerCS
 			return 0;
 		}
 
-		public long Problem45()
+		[Problem(ProblemState.Solved)]
+		public long Problem045()
 		{
 			long i = 143;
 			for (; ; )
@@ -819,7 +987,8 @@ namespace ProjectEulerCS
 			}
 		}
 
-		public string Problem48()
+		[Problem(ProblemState.Solved)]
+		public string Problem048()
 		{
 			BigInteger answer = 1;
 			for (int i = 2; i < 1000; i++)
@@ -830,7 +999,8 @@ namespace ProjectEulerCS
 			return s.Substring(s.Length - 10);
 		}
 
-		public string Problem49()
+		[Problem(ProblemState.Solved)]
+		public string Problem049()
 		{
 			for (int i = 1488; i < 9999; i++)
 			{
@@ -862,11 +1032,8 @@ namespace ProjectEulerCS
 			return "";
 		}
 
-		/// <summary>
-		/// unsolved
-		/// </summary>
-		/// <returns></returns>
-		public int Problem50()
+		[Problem(ProblemState.InProgress)]
+		public int Problem050()
 		{
 			int answer = 0;
 
@@ -884,12 +1051,13 @@ namespace ProjectEulerCS
 			return answer;
 		}
 
-		public int Problem52()
+		[Problem(ProblemState.Solved)]
+		public int Problem052()
 		{
 			int i = 0;
 			for (; ; )
 			{
-				Restart:
+			Restart:
 				i++;
 				for (int j = 2; j < 6; j++)
 					if (!MathUtils.ContainsSameDigits(i, i * j))
@@ -898,26 +1066,29 @@ namespace ProjectEulerCS
 			}
 		}
 
-		public int Problem53()
+		[Problem(ProblemState.Solved)]
+		public int Problem053()
 		{
 			int total = 0;
 			for (BigInteger i = 1; i < 101; i++)
 				for (BigInteger j = 1; j < i; j++)
-					if (Utils.MathUtils.Combinations(i, j) > 1000000)
+					if (MathUtils.Combinations(i, j) > 1000000)
 						total++;
 			return total;
 		}
 
-		public int Problem55()
+		[Problem(ProblemState.Solved)]
+		public int Problem055()
 		{
 			int lychrels = 0;
 			for (int i = 10; i < 10000; i++)
-				if (Utils.MathUtils.IsLychrel(i))
+				if (MathUtils.IsLychrel(i))
 					lychrels++;
 			return lychrels;
 		}
 
-		public double Problem56()
+		[Problem(ProblemState.Solved)]
+		public double Problem056()
 		{
 			double largest = 0;
 
@@ -929,7 +1100,7 @@ namespace ProjectEulerCS
 
 					double sum = 0;
 					for (int k = 0; k < r.ToString().Length; k++)
-						sum += Utils.MathUtils.DigitAt(r, k);
+						sum += MathUtils.DigitAt(r, k);
 					if (largest < sum)
 						largest = sum;
 				}
@@ -937,7 +1108,8 @@ namespace ProjectEulerCS
 			return largest;
 		}
 
-		public double Problem58()
+		[Problem(ProblemState.Solved)]
+		public double Problem058()
 		{
 			double grid = 1;
 			long num = 1;
@@ -968,7 +1140,8 @@ namespace ProjectEulerCS
 			return grid;
 		}
 
-		public int Problem63()
+		[Problem(ProblemState.Solved)]
+		public int Problem063()
 		{
 			int total = 0;
 			for (int i = 1; i < 25; i++)
@@ -978,7 +1151,8 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public int Problem67()
+		[Problem(ProblemState.Solved)]
+		public int Problem067()
 		{
 			int[][] matrix = ResourceUtils.GenerateMatrix(67);
 
@@ -996,7 +1170,8 @@ namespace ProjectEulerCS
 			return matrix[0][0];
 		}
 
-		public int Problem89()
+		[Problem(ProblemState.Solved)]
+		public int Problem089()
 		{
 			int oldChars = 0;
 			int newChars = 0;
@@ -1008,7 +1183,8 @@ namespace ProjectEulerCS
 			return oldChars - newChars;
 		}
 
-		public int Problem92()
+		[Problem(ProblemState.Solved)]
+		public int Problem092()
 		{
 			int total = 0;
 
@@ -1029,11 +1205,13 @@ namespace ProjectEulerCS
 			return total;
 		}
 
-		public BigInteger Problem97()
+		[Problem(ProblemState.Solved)]
+		public BigInteger Problem097()
 		{
 			return (28433 * BigInteger.Pow(2, 7830457) + 1) % 10000000000;
 		}
 
+		[Problem(ProblemState.TooSlow)] // 4:36.93
 		public int Problem179()
 		{
 			int limit = (int)Math.Pow(10, 7);
@@ -1052,16 +1230,16 @@ namespace ProjectEulerCS
 			return result;
 		}
 
-		// TODO
+		[Problem(ProblemState.InProgress)]
 		public string Problem345()
 		{
 			List<int> originalList = ResourceUtils.GenerateList(345).ToList();
-			List<List<int>> combos = originalList.GetAllCombos();
+			List<List<int>> combos = GetAllCombos(originalList);
 
 			int c = 0;
 			for (; ; )
 			{
-				Restart:
+			Restart:
 
 				List<int> list = new List<int>(combos[c]);
 				Dictionary<int, int> highest = new Dictionary<int, int>();
@@ -1098,6 +1276,27 @@ namespace ProjectEulerCS
 				}
 
 				return highestStr.ToString().TrimEnd("+ ".ToCharArray()) + " = " + result;
+			}
+
+			List<List<T>> GetAllCombos<T>(List<T> list)
+			{
+				List<List<T>> result = new List<List<T>>
+				{
+					new List<T>()
+				};
+				result.Last().Add(list[0]);
+				if (list.Count == 1)
+					return result;
+
+				List<List<T>> tailCombos = GetAllCombos(list.Skip(1).ToList());
+				tailCombos.ForEach(combo =>
+				{
+					result.Add(new List<T>(combo));
+					combo.Add(list[0]);
+					result.Add(new List<T>(combo));
+				});
+
+				return result;
 			}
 		}
 	}
