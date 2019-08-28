@@ -90,7 +90,7 @@ namespace ProjectEulerCS.Utils
 				return false;
 
 			string r = a.ToString();
-			for (int i = 0; i < a.ToString().Length; i++)
+			for (int i = 0; i < r.Length; i++)
 			{
 				r = r.Substring(1, r.Length - 1) + r[0];
 				if (!IsPrime(long.Parse(r)))

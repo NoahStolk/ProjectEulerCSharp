@@ -9,6 +9,9 @@ using System.Text;
 
 namespace ProjectEulerCS.Problems
 {
+	/// <summary>
+	/// Singleton class that contains all problem code.
+	/// </summary>
 	public sealed class ProblemsHandler
 	{
 		private static readonly Lazy<ProblemsHandler> lazy = new Lazy<ProblemsHandler>(() => new ProblemsHandler());
@@ -85,7 +88,7 @@ namespace ProjectEulerCS.Problems
 					bool breakOuter = false;
 					for (int k = 0; k < 3; k++)
 					{
-						if (str[k] != str[6 - k - 1])
+						if (str[k] != str[5 - k])
 						{
 							breakOuter = true;
 							break;

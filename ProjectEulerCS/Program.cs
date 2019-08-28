@@ -11,8 +11,24 @@ using ProjectEulerCS.Problems;
 
 namespace ProjectEulerCS
 {
+	/// <summary>
+	/// Handles all GUI-related tasks, as well as executing commands.
+	/// </summary>
 	public static class Program
 	{
+		private static ConsoleColor UnsolvedColor => ConsoleColor.DarkGray;
+
+		private static ConsoleColor GetColor(ProblemState state)
+		{
+			switch (state)
+			{
+				case ProblemState.Solved: return ConsoleColor.Green;
+				case ProblemState.TooSlow: return ConsoleColor.DarkGreen;
+				case ProblemState.InProgress: return ConsoleColor.Magenta;
+				default: return ConsoleColor.White;
+			}
+		}
+
 		private static string FormatColumns(params string[] columnNames)
 		{
 			StringBuilder format = new StringBuilder();
@@ -21,20 +37,21 @@ namespace ProjectEulerCS
 			return string.Format(format.ToString(), columnNames);
 		}
 
-		private static ConsoleColor GetColor(ProblemState state)
+		private static void TrySetWindowSize(int width, int height)
 		{
-			switch (state)
+			try
 			{
-				case ProblemState.Solved: return ConsoleColor.Green;
-				case ProblemState.TooSlow: return ConsoleColor.Magenta;
-				case ProblemState.InProgress: return ConsoleColor.DarkYellow;
-				default: return ConsoleColor.White;
+				Console.SetWindowSize(width, height);
+			}
+			catch
+			{
+				ConsoleUtils.WriteLineColor($"Failed to set window size to {width}, {height}", ConsoleColor.Red);
 			}
 		}
 
 		public static void Main()
 		{
-			Console.SetWindowSize(192, 64);
+			TrySetWindowSize(192, 64);
 
 			ConsoleUtils.WriteBanner("Project Euler - C#", 4, 2, '-', ConsoleColor.DarkBlue, ConsoleColor.Green);
 			Console.WriteLine();
@@ -60,15 +77,24 @@ namespace ProjectEulerCS
 						Console.WriteLine();
 						continue;
 					case "progress":
-						foreach (ProblemState state in (ProblemState[])Enum.GetValues(typeof(ProblemState)))
-							ConsoleUtils.WriteLineColor($"\t\t{state}", GetColor(state));
-						ConsoleUtils.WriteLineColor("\t\tUnsolved", ConsoleColor.White);
-						Console.WriteLine();
-
 						Dictionary<int, ProblemState> problems = new Dictionary<int, ProblemState>();
 						foreach (MethodInfo method in typeof(ProblemsHandler).GetMethods())
 							if (int.TryParse(method.Name.Numeric(), out int problem))
 								problems.Add(problem, method.GetCustomAttribute<Problem>().State);
+
+						foreach (ProblemState state in (ProblemState[])Enum.GetValues(typeof(ProblemState)))
+							ConsoleUtils.WriteLineColor($"{problems.Where(p => p.Value == state).FirstOrDefault().Key.ToString("D3")} {state}", GetColor(state));
+
+						for (int i = 1; i < problems.Keys.Max(); i++)
+						{
+							if (!problems.ContainsKey(i))
+							{
+								ConsoleUtils.WriteLineColor($"{i.ToString("D3")} Unsolved", UnsolvedColor);
+								break;
+							}
+						}
+
+						Console.WriteLine();
 
 						for (int i = 0; i < Math.Ceiling((double)problems.Keys.Max() / 10); i++)
 						{
@@ -82,7 +108,7 @@ namespace ProjectEulerCS
 								}
 								else
 								{
-									ConsoleUtils.WriteColor($"{problem.ToString("D3")} ", ConsoleColor.White);
+									ConsoleUtils.WriteColor($"{problem.ToString("D3")} ", UnsolvedColor);
 								}
 							}
 							Console.WriteLine();

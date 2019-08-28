@@ -15,8 +15,7 @@ namespace ProjectEulerCS.Utils
 				string lineCopy = line;
 				while (lineCopy.Contains("  "))
 					lineCopy = lineCopy.Replace("  ", " ");
-				if (lineCopy[0] == ' ')
-					lineCopy = lineCopy.Substring(1);
+				lineCopy = lineCopy.TrimStart(' ');
 
 				string[] numbers = lineCopy.Split(' ');
 				matrix[i] = new int[numbers.Length];
@@ -33,9 +32,7 @@ namespace ProjectEulerCS.Utils
 			string fileContents = File.ReadAllText(filePath);
 			while (fileContents.Contains("  "))
 				fileContents = fileContents.Replace("  ", " ");
-			fileContents = fileContents.Replace("\r\n", " ");
-			if (fileContents[0] == ' ')
-				fileContents = fileContents.Substring(1);
+			fileContents = fileContents.Replace("\r\n", " ").TrimStart(' ');
 
 			string[] numbers = fileContents.Split(' ');
 			int[] matrix = new int[numbers.Length];
