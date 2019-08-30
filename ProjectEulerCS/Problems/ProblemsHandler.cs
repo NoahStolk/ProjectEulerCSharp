@@ -291,11 +291,9 @@ namespace ProjectEulerCS.Problems
 		[Problem(ProblemState.Solved)]
 		public string Problem013()
 		{
-			string[] digits = File.ReadAllLines(Path.Combine("Resources", "013.txt"));
 			string total = "0";
-			for (int x = 0; x < digits.Length; x++)
-				total = total.NumeralAddition(digits[x]);
-
+			foreach (string number in File.ReadAllLines(Path.Combine("Resources", "013.txt")))
+				total = total.NumeralAddition(number);
 			return total.Substring(0, 10);
 		}
 

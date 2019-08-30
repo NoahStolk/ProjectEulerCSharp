@@ -22,10 +22,7 @@ namespace ProjectEulerCS.Utils
 				if (number % i == 0 || number % Math.Ceiling(number / (double)i) == 0)
 					return false;
 
-			if (sqrt == Math.Floor(sqrt))
-				return false;
-
-			return true;
+			return sqrt != Math.Floor(sqrt);
 		}
 
 		public static bool IsTruncatablePrime(long number)
@@ -103,10 +100,7 @@ namespace ProjectEulerCS.Utils
 			if (number != 1)
 				factors++;
 
-			if (factors == 2)
-				return true;
-
-			return false;
+			return factors == 2;
 		}
 
 		public static int GetDivisorAmount(long number)
@@ -400,7 +394,7 @@ namespace ProjectEulerCS.Utils
 			string aRev = s1.Reverse();
 			string bRev = s2.Reverse();
 
-			int length = Math.Max(aRev.Length, bRev.Length) + 1;
+			int length = Math.Max(aRev.Length, bRev.Length) + 2;
 			char[] n = new char[length];
 
 			int remainder = 0;
@@ -415,18 +409,7 @@ namespace ProjectEulerCS.Utils
 				n[i] = int.Parse(resultStr[resultStr.Length - 1].ToString()).ToString()[0];
 			}
 
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < n.Length; i++)
-				sb.Append(n[i]);
-
-			string endResult = sb.ToString();
-			for (int i = endResult.Length - 1; i >= 0; i--)
-				if (endResult[i] == '0')
-					endResult = endResult.Substring(0, endResult.Length - 1);
-				else
-					break;
-
-			return endResult.Reverse();
+			return new string(n).Reverse().TrimStart('0');
 		}
 
 		public static string NumeralSubtraction(this string s1, string s2)
@@ -459,18 +442,7 @@ namespace ProjectEulerCS.Utils
 				n[i] = int.Parse(resultStr[resultStr.Length - 1].ToString()).ToString()[0];
 			}
 
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < n.Length; i++)
-				sb.Append(n[i]);
-
-			string endResult = sb.ToString();
-			for (int i = endResult.Length - 1; i >= 0; i--)
-				if (endResult[i] == '0')
-					endResult = endResult.Substring(0, endResult.Length - 1);
-				else
-					break;
-
-			return endResult.Reverse();
+			return new string(n).Reverse().TrimStart('0');
 		}
 	}
 }
