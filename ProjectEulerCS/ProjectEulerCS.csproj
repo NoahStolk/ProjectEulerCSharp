@@ -82,6 +82,9 @@
     <Content Include="Resources\089.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\099.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\345.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

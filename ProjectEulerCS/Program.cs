@@ -157,7 +157,7 @@ namespace ProjectEulerCS
 			catch (Exception ex)
 			{
 				ConsoleUtils.WriteLineColor("FATAL ERROR", ConsoleColor.Red);
-				ConsoleUtils.WriteLineColor(ex.AllInnerExceptionMessages("\n\n\t"), ConsoleColor.Red);
+				ConsoleUtils.WriteLineColor(ex.AllInnerExceptionMessages(), ConsoleColor.Red);
 			}
 		}
 	}

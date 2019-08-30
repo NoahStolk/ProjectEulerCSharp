@@ -1212,6 +1212,29 @@ namespace ProjectEulerCS.Problems
 			return (28433 * BigInteger.Pow(2, 7830457) + 1) % 10000000000;
 		}
 
+		[Problem(ProblemState.InProgress)]
+		public BigInteger Problem099()
+		{
+			int largest = 0;
+
+			int i = 0;
+			foreach (string line in File.ReadAllLines(Path.Combine("Resources", "099.txt")))
+			{
+				i++;
+				string[] str = line.Split(',');
+				BigInteger ans = BigInteger.Pow(int.Parse(str[0]), int.Parse(str[1]));
+				if (ans > largest)
+				{
+					largest = i;
+					Console.WriteLine($"{i} is now largest");
+				}
+
+				Console.WriteLine($"Got line {i}");
+			}
+
+			return largest;
+		}
+
 		[Problem(ProblemState.TooSlow)] // 4:36.93
 		public int Problem179()
 		{
