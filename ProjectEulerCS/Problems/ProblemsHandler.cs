@@ -34,11 +34,10 @@ namespace ProjectEulerCS.Problems
 		[Problem(ProblemState.Solved)]
 		public int Problem002()
 		{
-			int a, b, c, d;
-			a = 0;
-			b = 1;
-			c = 0;
-			d = 0;
+			int a = 0;
+			int b = 1;
+			int c = 0;
+			int d = 0;
 
 			while (c < 4000000)
 			{
@@ -74,13 +73,16 @@ namespace ProjectEulerCS.Problems
 		{
 			int largest = 0;
 
-			// The square root of 100000 (minimum value that contains 6 digits) floored is 316, so start from there.
-			for (int i = 316; i < 1000; i++)
+			int minValue = 100000;
+			int maxValue = 999999;
+			int min = (int)Math.Sqrt(minValue); // Start from the square root of 100000 (minimum value that contains 6 digits).
+			int max = (int)Math.Sqrt(maxValue); // Stop at the square root of 999999 (maximum value that contains 6 digits).
+			for (int i = min; i < max; i++)
 			{
-				for (int j = 316; j < 1000; j++)
+				for (int j = min; j < max; j++)
 				{
 					int x = i * j;
-					if (x < 100000 || x > 999999) // Result needs to contain 6 digits.
+					if (x < minValue || x > maxValue) // Result needs to contain 6 digits (this is necessary due min being cast to an integer).
 						continue;
 
 					string str = x.ToString();
