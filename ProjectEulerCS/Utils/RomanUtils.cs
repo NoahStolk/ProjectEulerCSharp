@@ -66,8 +66,10 @@ namespace ProjectEulerCS.Utils
 
 		public static bool IsRoman(this string s, bool caseSensitive = false)
 		{
+			if (caseSensitive)
+				s = s.ToUpper();
 			foreach (char c in s)
-				if (!romanMap.ContainsKey(caseSensitive ? c : char.ToUpper(c)))
+				if (!romanMap.ContainsKey(c))
 					return false;
 			return true;
 		}

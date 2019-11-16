@@ -106,16 +106,10 @@ namespace ProjectEulerCS.Utils
 		public static int GetDivisorAmount(long number)
 		{
 			long sqrt = (long)Math.Sqrt(number);
-
 			int divisors = 0;
 			for (long i = 1; i <= sqrt; i++)
-			{
-				if (number % i == 0 && i * i != number)
-					divisors += 2;
-				else if (number % i == 0 && i * i == number)
-					divisors++;
-			}
-
+				if (number % i == 0)
+					divisors += i * i != number ? 2 : 1;
 			return divisors;
 		}
 
