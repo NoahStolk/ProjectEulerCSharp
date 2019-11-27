@@ -16,6 +16,8 @@ namespace ProjectEulerCS
 	/// </summary>
 	public static class Program
 	{
+		private static readonly string ProblemNumberFormat = "D3";
+
 		private static ConsoleColor UnsolvedColor => ConsoleColor.DarkGray;
 
 		private static ConsoleColor GetColor(ProblemState state)
@@ -83,13 +85,13 @@ namespace ProjectEulerCS
 								problems.Add(problem, method.GetCustomAttribute<Problem>().State);
 
 						foreach (ProblemState state in (ProblemState[])Enum.GetValues(typeof(ProblemState)))
-							ConsoleUtils.WriteLineColor($"{problems.Where(p => p.Value == state).FirstOrDefault().Key.ToString("D3")} {state}", GetColor(state));
+							ConsoleUtils.WriteLineColor($"{problems.Where(p => p.Value == state).FirstOrDefault().Key.ToString(ProblemNumberFormat)} {state}", GetColor(state));
 
 						for (int i = 1; i < problems.Keys.Max(); i++)
 						{
 							if (!problems.ContainsKey(i))
 							{
-								ConsoleUtils.WriteLineColor($"{i.ToString("D3")} Unsolved", UnsolvedColor);
+								ConsoleUtils.WriteLineColor($"{i.ToString(ProblemNumberFormat)} Unsolved", UnsolvedColor);
 								break;
 							}
 						}
@@ -104,11 +106,11 @@ namespace ProjectEulerCS
 								if (problems.Keys.Contains(problem))
 								{
 									ProblemState state = problems[problem];
-									ConsoleUtils.WriteColor($"{problem.ToString("D3")} ", GetColor(state));
+									ConsoleUtils.WriteColor($"{problem.ToString(ProblemNumberFormat)} ", GetColor(state));
 								}
 								else
 								{
-									ConsoleUtils.WriteColor($"{problem.ToString("D3")} ", UnsolvedColor);
+									ConsoleUtils.WriteColor($"{problem.ToString(ProblemNumberFormat)} ", UnsolvedColor);
 								}
 							}
 							Console.WriteLine();
@@ -130,7 +132,7 @@ namespace ProjectEulerCS
 
 				Dictionary<int, MethodInfo> problemMethods = new Dictionary<int, MethodInfo>();
 				for (int i = 0; i < problemsInput.Length; i++)
-					problemMethods.Add(problemsInput[i], typeof(ProblemsHandler).GetMethod($"Problem{problemsInput[i].ToString("D3")}"));
+					problemMethods.Add(problemsInput[i], typeof(ProblemsHandler).GetMethod($"Problem{problemsInput[i].ToString(ProblemNumberFormat)}"));
 
 				ConsoleUtils.WriteLineColor(FormatColumns("Problem", "Answer", "Time"), ConsoleColor.Magenta);
 
@@ -152,7 +154,7 @@ namespace ProjectEulerCS
 			}
 			catch (NullReferenceException)
 			{
-				ConsoleUtils.WriteLineColor(FormatColumns(kvp.Key.ToString("D3"), "Problem not found."), ConsoleColor.Red);
+				ConsoleUtils.WriteLineColor(FormatColumns(kvp.Key.ToString(ProblemNumberFormat), "Problem not found."), ConsoleColor.Red);
 			}
 			catch (Exception ex)
 			{
