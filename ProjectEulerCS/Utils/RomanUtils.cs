@@ -63,15 +63,5 @@ namespace ProjectEulerCS.Utils
 
 			return romanMapExtended.FirstOrDefault(x => x.Value == l).Key + IntegerToRoman(input - l);
 		}
-
-		public static bool IsRoman(this string s, bool caseSensitive = false)
-		{
-			if (caseSensitive)
-				s = s.ToUpper();
-			foreach (char c in s)
-				if (!romanMap.ContainsKey(c))
-					return false;
-			return true;
-		}
 	}
 }

@@ -360,18 +360,18 @@ namespace ProjectEulerCS.Problems
 			int letters = 0;
 
 			for (int x = 1; x <= 1000; x++)
-				letters += GetWord(x).Length;
+				letters += GetWordMax1000(x).Length;
 
 			return letters;
 
-			StringBuilder GetWord(int n)
+			StringBuilder GetWordMax1000(int n)
 			{
 				StringBuilder word = new StringBuilder();
 
 				if (n.ToString().Length == 4)
 				{
 					word.Append("onethousand");
-					n = int.Parse(n.ToString().Substring(1));
+					return word;
 				}
 
 				if (n.ToString().Length == 3)
@@ -427,50 +427,37 @@ namespace ProjectEulerCS.Problems
 					}
 					else
 					{
-						if (n == 19)
-							word.Append("nineteen");
-						else if (n == 18)
-							word.Append("eighteen");
-						else if (n == 17)
-							word.Append("seventeen");
-						else if (n == 16)
-							word.Append("sixteen");
-						else if (n == 15)
-							word.Append("fifteen");
-						else if (n == 14)
-							word.Append("fourteen");
-						else if (n == 13)
-							word.Append("thirteen");
-						else if (n == 12)
-							word.Append("twelve");
-						else if (n == 11)
-							word.Append("eleven");
-						else if (n == 10)
-							word.Append("ten");
-						n = 0;
+						switch (n)
+						{
+							case 19: word.Append("nineteen"); break;
+							case 18: word.Append("eighteen"); break;
+							case 17: word.Append("seventeen"); break;
+							case 16: word.Append("sixteen"); break;
+							case 15: word.Append("fifteen"); break;
+							case 14: word.Append("fourteen"); break;
+							case 13: word.Append("thirteen"); break;
+							case 12: word.Append("twelve"); break;
+							case 11: word.Append("eleven"); break;
+							case 10: word.Append("ten"); break;
+						}
+						return word;
 					}
 				}
 
 				if (n.ToString().Length == 1)
 				{
-					if (n == 9)
-						word.Append("nine");
-					if (n == 8)
-						word.Append("eight");
-					if (n == 7)
-						word.Append("seven");
-					if (n == 6)
-						word.Append("six");
-					if (n == 5)
-						word.Append("five");
-					if (n == 4)
-						word.Append("four");
-					if (n == 3)
-						word.Append("three");
-					if (n == 2)
-						word.Append("two");
-					if (n == 1)
-						word.Append("one");
+					switch (n)
+					{
+						case 9: word.Append("nine"); break;
+						case 8: word.Append("eight"); break;
+						case 7: word.Append("seven"); break;
+						case 6: word.Append("six"); break;
+						case 5: word.Append("five"); break;
+						case 4: word.Append("four"); break;
+						case 3: word.Append("three"); break;
+						case 2: word.Append("two"); break;
+						case 1: word.Append("one"); break;
+					}
 				}
 
 				return word;
