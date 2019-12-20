@@ -364,7 +364,7 @@ namespace ProjectEulerCS.Problems
 
 			return letters;
 
-			StringBuilder GetWordMax1000(int n)
+			static StringBuilder GetWordMax1000(int n)
 			{
 				StringBuilder word = new StringBuilder();
 

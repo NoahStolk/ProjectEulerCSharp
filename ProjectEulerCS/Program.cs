@@ -22,13 +22,13 @@ namespace ProjectEulerCS
 
 		private static ConsoleColor GetColor(ProblemState state)
 		{
-			switch (state)
+			return state switch
 			{
-				case ProblemState.Solved: return ConsoleColor.Green;
-				case ProblemState.TooSlow: return ConsoleColor.DarkGreen;
-				case ProblemState.InProgress: return ConsoleColor.Magenta;
-				default: return ConsoleColor.White;
-			}
+				ProblemState.Solved => ConsoleColor.Green,
+				ProblemState.TooSlow => ConsoleColor.DarkGreen,
+				ProblemState.InProgress => ConsoleColor.Magenta,
+				_ => ConsoleColor.White,
+			};
 		}
 
 		private static string FormatColumns(params string[] columnNames)

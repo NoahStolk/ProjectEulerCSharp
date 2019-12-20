@@ -32,7 +32,7 @@ namespace ProjectEulerCS.Utils
 			string numStr = number.ToString();
 			int length = numStr.Length;
 			for (int i = length - 1; i >= 0; i--)
-				if (!IsPrime(int.Parse(numStr.Substring(0, length - i))) || !IsPrime(int.Parse(numStr.Substring(i, length - i))))
+				if (!IsPrime(int.Parse(numStr[..(length - i)])) || !IsPrime(int.Parse(numStr[i..length])))
 					return false;
 
 			return true;
@@ -46,7 +46,7 @@ namespace ProjectEulerCS.Utils
 			string r = number.ToString();
 			for (int i = 0; i < r.Length; i++)
 			{
-				r = r.Substring(1, r.Length - 1) + r[0];
+				r = r[1..] + r[0];
 				if (!IsPrime(long.Parse(r)))
 					return false;
 			}
@@ -399,7 +399,7 @@ namespace ProjectEulerCS.Utils
 				string resultStr = result.ToString();
 				remainder = (resultStr.Length > 1) ? int.Parse(resultStr[0].ToString()) : 0;
 
-				n[i] = int.Parse(resultStr[resultStr.Length - 1].ToString()).ToString()[0];
+				n[i] = int.Parse(resultStr[^1].ToString()).ToString()[0];
 			}
 
 			return new string(n).Reverse().TrimStart('0');
@@ -432,7 +432,7 @@ namespace ProjectEulerCS.Utils
 
 				string resultStr = result.ToString();
 
-				n[i] = int.Parse(resultStr[resultStr.Length - 1].ToString()).ToString()[0];
+				n[i] = int.Parse(resultStr[^1].ToString()).ToString()[0];
 			}
 
 			return new string(n).Reverse().TrimStart('0');
