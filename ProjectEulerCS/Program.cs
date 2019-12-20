@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using NetBase.Console;
 using System.Text.RegularExpressions;
 using System.Text;
 using ProjectEulerCS.Problems;
+using ProjectEulerCS.Utils;
 
 namespace ProjectEulerCS
 {
@@ -81,7 +81,7 @@ namespace ProjectEulerCS
 					case "progress":
 						Dictionary<int, ProblemState> problems = new Dictionary<int, ProblemState>();
 						foreach (MethodInfo method in typeof(ProblemsHandler).GetMethods())
-							if (int.TryParse(method.Name.Numeric(), out int problem))
+							if (int.TryParse(method.Name.MakeNumeric(), out int problem))
 								problems.Add(problem, method.GetCustomAttribute<Problem>().State);
 
 						foreach (ProblemState state in (ProblemState[])Enum.GetValues(typeof(ProblemState)))
@@ -150,7 +150,7 @@ namespace ProjectEulerCS
 				Stopwatch stopwatch = new Stopwatch();
 				stopwatch.Start();
 
-				ConsoleUtils.WriteLineColor(FormatColumns(kvp.Value.Name.Numeric(), kvp.Value.Invoke(ProblemsHandler.Instance, null).ToString(), stopwatch.Elapsed.ToString()), ConsoleColor.White);
+				ConsoleUtils.WriteLineColor(FormatColumns(kvp.Value.Name.MakeNumeric(), kvp.Value.Invoke(ProblemsHandler.Instance, null).ToString(), stopwatch.Elapsed.ToString()), ConsoleColor.White);
 			}
 			catch (NullReferenceException)
 			{

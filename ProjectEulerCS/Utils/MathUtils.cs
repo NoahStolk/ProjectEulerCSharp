@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Text;
 using System.Threading;
 
 namespace ProjectEulerCS.Utils
@@ -382,7 +381,7 @@ namespace ProjectEulerCS.Utils
 
 		public static string NumeralAddition(this string s1, string s2)
 		{
-			if (s1.Numeric() != s1 || s2.Numeric() != s2)
+			if (s1.MakeNumeric() != s1 || s2.MakeNumeric() != s2)
 				return string.Empty;
 
 			string aRev = s1.Reverse();
@@ -408,7 +407,7 @@ namespace ProjectEulerCS.Utils
 
 		public static string NumeralSubtraction(this string s1, string s2)
 		{
-			if (s1.Numeric() != s1 || s2.Numeric() != s2)
+			if (s1.MakeNumeric() != s1 || s2.MakeNumeric() != s2)
 				return string.Empty;
 
 			string aRev = s1.Reverse();
