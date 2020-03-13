@@ -5,7 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 
-namespace ProjectEulerCS.Utils
+namespace ProjectEulerCSharp.Utils
 {
 	public static class MathUtils
 	{
@@ -397,7 +397,7 @@ namespace ProjectEulerCS.Utils
 				int bDigit = bRev.Length > i ? int.Parse(bRev[i].ToString()) : 0;
 				int result = aDigit + bDigit + remainder;
 				string resultStr = result.ToString();
-				remainder = (resultStr.Length > 1) ? int.Parse(resultStr[0].ToString()) : 0;
+				remainder = resultStr.Length > 1 ? int.Parse(resultStr[0].ToString()) : 0;
 
 				n[i] = int.Parse(resultStr[^1].ToString()).ToString()[0];
 			}

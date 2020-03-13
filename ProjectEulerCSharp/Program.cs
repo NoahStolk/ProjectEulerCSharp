@@ -1,15 +1,15 @@
-﻿using NetBase.Extensions;
+﻿using ConsoleUtils.Colors;
+using NetBase.Extensions;
+using ProjectEulerCSharp.Problems;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Text;
-using ProjectEulerCS.Problems;
-using ProjectEulerCS.Utils;
+using System.Text.RegularExpressions;
 
-namespace ProjectEulerCS
+namespace ProjectEulerCSharp
 {
 	/// <summary>
 	/// Handles all GUI-related tasks, as well as executing commands.
@@ -47,7 +47,7 @@ namespace ProjectEulerCS
 			}
 			catch
 			{
-				ConsoleUtils.WriteLineColor($"Failed to set window size to {width}, {height}", ConsoleColor.Red);
+				ConsoleColorUtils.WriteLineColor($"Failed to set window size to {width}, {height}", ConsoleColor.Red);
 			}
 		}
 
@@ -55,14 +55,14 @@ namespace ProjectEulerCS
 		{
 			TrySetWindowSize(192, 64);
 
-			ConsoleUtils.WriteBanner("Project Euler - C#", 4, 2, '-', ConsoleColor.DarkBlue, ConsoleColor.Green);
+			ConsoleColorUtils.WriteBanner("Project Euler - C#", 4, 2, '-', ConsoleColor.DarkBlue, ConsoleColor.Green);
 			Console.WriteLine();
-			ConsoleUtils.WriteLineColor("Enter 'help' for a list of commands.", ConsoleColor.Cyan);
+			ConsoleColorUtils.WriteLineColor("Enter 'help' for a list of commands.", ConsoleColor.Cyan);
 			Console.WriteLine();
 
 			for (; ; )
 			{
-				ConsoleUtils.WriteColor("Enter command: ", ConsoleColor.Yellow);
+				ConsoleColorUtils.WriteColor("Enter command: ", ConsoleColor.Yellow);
 
 				string input = Console.ReadLine().ToLower();
 				Console.WriteLine();
@@ -70,12 +70,12 @@ namespace ProjectEulerCS
 				switch (input)
 				{
 					case "help":
-						ConsoleUtils.WriteLineColor(FormatColumns("Command", "Description"), ConsoleColor.Magenta);
-						ConsoleUtils.WriteLineColor(FormatColumns("help", "Shows the list of commands."), ConsoleColor.Cyan);
-						ConsoleUtils.WriteLineColor(FormatColumns("progress", "Shows all available problems."), ConsoleColor.Cyan);
-						ConsoleUtils.WriteLineColor(FormatColumns("exit", "Exits the program."), ConsoleColor.Cyan);
-						ConsoleUtils.WriteLineColor(FormatColumns("x", "Solves problem x."), ConsoleColor.Cyan);
-						ConsoleUtils.WriteLineColor(FormatColumns("x,y,z", "Solves problem x, y, and z."), ConsoleColor.Cyan);
+						ConsoleColorUtils.WriteLineColor(FormatColumns("Command", "Description"), ConsoleColor.Magenta);
+						ConsoleColorUtils.WriteLineColor(FormatColumns("help", "Shows the list of commands."), ConsoleColor.Cyan);
+						ConsoleColorUtils.WriteLineColor(FormatColumns("progress", "Shows all available problems."), ConsoleColor.Cyan);
+						ConsoleColorUtils.WriteLineColor(FormatColumns("exit", "Exits the program."), ConsoleColor.Cyan);
+						ConsoleColorUtils.WriteLineColor(FormatColumns("x", "Solves problem x."), ConsoleColor.Cyan);
+						ConsoleColorUtils.WriteLineColor(FormatColumns("x,y,z", "Solves problem x, y, and z."), ConsoleColor.Cyan);
 						Console.WriteLine();
 						continue;
 					case "progress":
@@ -85,13 +85,13 @@ namespace ProjectEulerCS
 								problems.Add(problem, method.GetCustomAttribute<Problem>().State);
 
 						foreach (ProblemState state in (ProblemState[])Enum.GetValues(typeof(ProblemState)))
-							ConsoleUtils.WriteLineColor($"{problems.Where(p => p.Value == state).FirstOrDefault().Key.ToString(ProblemNumberFormat)} {state}", GetColor(state));
+							ConsoleColorUtils.WriteLineColor($"{problems.Where(p => p.Value == state).FirstOrDefault().Key.ToString(ProblemNumberFormat)} {state}", GetColor(state));
 
 						for (int i = 1; i < problems.Keys.Max(); i++)
 						{
 							if (!problems.ContainsKey(i))
 							{
-								ConsoleUtils.WriteLineColor($"{i.ToString(ProblemNumberFormat)} Unsolved", UnsolvedColor);
+								ConsoleColorUtils.WriteLineColor($"{i.ToString(ProblemNumberFormat)} Unsolved", UnsolvedColor);
 								break;
 							}
 						}
@@ -106,11 +106,11 @@ namespace ProjectEulerCS
 								if (problems.Keys.Contains(problem))
 								{
 									ProblemState state = problems[problem];
-									ConsoleUtils.WriteColor($"{problem.ToString(ProblemNumberFormat)} ", GetColor(state));
+									ConsoleColorUtils.WriteColor($"{problem.ToString(ProblemNumberFormat)} ", GetColor(state));
 								}
 								else
 								{
-									ConsoleUtils.WriteColor($"{problem.ToString(ProblemNumberFormat)} ", UnsolvedColor);
+									ConsoleColorUtils.WriteColor($"{problem.ToString(ProblemNumberFormat)} ", UnsolvedColor);
 								}
 							}
 							Console.WriteLine();
@@ -134,7 +134,7 @@ namespace ProjectEulerCS
 				for (int i = 0; i < problemsInput.Length; i++)
 					problemMethods.Add(problemsInput[i], typeof(ProblemsHandler).GetMethod($"Problem{problemsInput[i].ToString(ProblemNumberFormat)}"));
 
-				ConsoleUtils.WriteLineColor(FormatColumns("Problem", "Answer", "Time"), ConsoleColor.Magenta);
+				ConsoleColorUtils.WriteLineColor(FormatColumns("Problem", "Answer", "Time"), ConsoleColor.Magenta);
 
 				foreach (KeyValuePair<int, MethodInfo> kvp in problemMethods)
 					ExecuteProblem(kvp);
@@ -150,16 +150,16 @@ namespace ProjectEulerCS
 				Stopwatch stopwatch = new Stopwatch();
 				stopwatch.Start();
 
-				ConsoleUtils.WriteLineColor(FormatColumns(kvp.Value.Name.MakeNumeric(), kvp.Value.Invoke(ProblemsHandler.Instance, null).ToString(), stopwatch.Elapsed.ToString()), ConsoleColor.White);
+				ConsoleColorUtils.WriteLineColor(FormatColumns(kvp.Value.Name.MakeNumeric(), kvp.Value.Invoke(ProblemsHandler.Instance, null).ToString(), stopwatch.Elapsed.ToString()), ConsoleColor.White);
 			}
 			catch (NullReferenceException)
 			{
-				ConsoleUtils.WriteLineColor(FormatColumns(kvp.Key.ToString(ProblemNumberFormat), "Problem not found."), ConsoleColor.Red);
+				ConsoleColorUtils.WriteLineColor(FormatColumns(kvp.Key.ToString(ProblemNumberFormat), "Problem not found."), ConsoleColor.Red);
 			}
 			catch (Exception ex)
 			{
-				ConsoleUtils.WriteLineColor("FATAL ERROR", ConsoleColor.Red);
-				ConsoleUtils.WriteLineColor(ex.AllInnerExceptionMessages(), ConsoleColor.Red);
+				ConsoleColorUtils.WriteLineColor("FATAL ERROR", ConsoleColor.Red);
+				ConsoleColorUtils.WriteLineColor(ex.AllInnerExceptionMessages(), ConsoleColor.Red);
 			}
 		}
 	}

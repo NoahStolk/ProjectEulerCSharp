@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectEulerCS.Problems
+namespace ProjectEulerCSharp.Problems
 {
 	public class Problem : Attribute
 	{

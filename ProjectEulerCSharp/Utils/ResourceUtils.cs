@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace ProjectEulerCS.Utils
+namespace ProjectEulerCSharp.Utils
 {
 	public static class ResourceUtils
 	{

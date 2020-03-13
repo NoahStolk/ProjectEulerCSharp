@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectEulerCS.Utils
+namespace ProjectEulerCSharp.Utils
 {
 	public static class RomanUtils
 	{
