@@ -1,4 +1,4 @@
-﻿using NetBase.Extensions;
+﻿using ProjectEulerCSharp.Extensions;
 using ProjectEulerCSharp.Utils;
 using System;
 using System.Collections.Generic;
@@ -636,7 +636,7 @@ namespace ProjectEulerCSharp.Problems
 			int hasLongest = 0;
 			for (int i = 2; i < 1000; i++)
 			{
-				Restart:
+Restart:
 				BigInteger d = BigInteger.Pow(10, 2000) / i;
 				string s = d.ToString();
 
@@ -1045,7 +1045,7 @@ namespace ProjectEulerCSharp.Problems
 			int i = 0;
 			for (; ; )
 			{
-				Restart:
+Restart:
 				i++;
 				for (int j = 2; j < 6; j++)
 					if (!MathUtils.ContainsSameDigits(i, i * j))
@@ -1250,7 +1250,7 @@ namespace ProjectEulerCSharp.Problems
 			int c = 0;
 			for (; ; )
 			{
-				Restart:
+Restart:
 
 				List<int> list = new List<int>(combos[c]);
 				Dictionary<int, int> highest = new Dictionary<int, int>();

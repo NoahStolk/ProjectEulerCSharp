@@ -1,5 +1,5 @@
 ﻿using ConsoleUtils.Colors;
-using NetBase.Extensions;
+using ProjectEulerCSharp.Extensions;
 using ProjectEulerCSharp.Problems;
 using System;
 using System.Collections.Generic;
@@ -55,7 +55,7 @@ namespace ProjectEulerCSharp
 		{
 			TrySetWindowSize(192, 64);
 
-			ConsoleColorUtils.WriteBanner("Project Euler - C#", 4, 2, '-', ConsoleColor.DarkBlue, ConsoleColor.Green);
+			WriteBanner("Project Euler - C#", 4, 2, '-', ConsoleColor.DarkBlue, ConsoleColor.Green);
 			Console.WriteLine();
 			ConsoleColorUtils.WriteLineColor("Enter 'help' for a list of commands.", ConsoleColor.Cyan);
 			Console.WriteLine();
@@ -141,6 +141,22 @@ namespace ProjectEulerCSharp
 
 				Console.WriteLine();
 			}
+		}
+
+		private static void WriteBanner(string name, int paddingHor, int paddingVer, char border, ConsoleColor background, ConsoleColor foreground)
+		{
+			Console.BackgroundColor = background;
+			Console.ForegroundColor = foreground;
+			for (int i = 0; i < paddingVer * 2 + 1; i++)
+			{
+				if (i == 0 || i == paddingVer * 2)
+					Console.WriteLine(border.ToString().Repeat(name.Length + paddingHor * 2 + 2));
+				else if (i == paddingVer)
+					Console.WriteLine($"{border}{" ".Repeat(paddingHor)}{name}{" ".Repeat(paddingHor)}{border}");
+				else
+					Console.WriteLine($"{border}{" ".Repeat(paddingHor * 2 + name.Length)}{border}");
+			}
+			Console.ResetColor();
 		}
 
 		private static void ExecuteProblem(KeyValuePair<int, MethodInfo> kvp)

@@ -1,4 +1,4 @@
-﻿using NetBase.Extensions;
+﻿using ProjectEulerCSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -203,6 +203,7 @@ namespace ProjectEulerCSharp.Utils
 		{
 			return value % 1 == 0;
 		}
+
 		public static bool IsInteger(double value)
 		{
 			return value % 1 == 0;
@@ -216,6 +217,7 @@ namespace ProjectEulerCSharp.Utils
 			string d = value.ToString();
 			return d.Substring(d.IndexOf(decimalSeparator) + 1);
 		}
+
 		public static string GetDecimals(double value)
 		{
 			if (!IsInteger(value))
@@ -291,6 +293,7 @@ namespace ProjectEulerCSharp.Utils
 		{
 			return n * (2 * n - 1);
 		}
+
 		public static int GetHexagonal(int n)
 		{
 			return n * (2 * n - 1);
@@ -300,6 +303,7 @@ namespace ProjectEulerCSharp.Utils
 		{
 			return IsInteger(Math.Sqrt(8 * n + 1));
 		}
+
 		public static bool IsTriangle(int n)
 		{
 			return IsInteger(Math.Sqrt(8 * n + 1));
@@ -309,6 +313,7 @@ namespace ProjectEulerCSharp.Utils
 		{
 			return IsInteger((1 + Math.Sqrt(24 * x + 1)) / 6);
 		}
+
 		public static bool IsPentagonal(int x)
 		{
 			return IsInteger((1 + Math.Sqrt(24 * x + 1)) / 6);
@@ -320,12 +325,14 @@ namespace ProjectEulerCSharp.Utils
 				return 1;
 			return i * Factorial(i - 1);
 		}
+
 		public static int Factorial(int i)
 		{
 			if (i <= 1)
 				return 1;
 			return i * Factorial(i - 1);
 		}
+
 		public static BigInteger Factorial(BigInteger a)
 		{
 			if (a <= 1)
@@ -346,6 +353,7 @@ namespace ProjectEulerCSharp.Utils
 
 			return int.Parse(d[pos].ToString());
 		}
+
 		public static int DigitAt(decimal value, int pos)
 		{
 			string d = value.ToString().Replace(decimalSeparator, string.Empty);
@@ -354,6 +362,7 @@ namespace ProjectEulerCSharp.Utils
 
 			return int.Parse(d[pos].ToString());
 		}
+
 		public static int DigitAt(double value, int pos)
 		{
 			string d = value.ToString().Replace(decimalSeparator, string.Empty);
@@ -362,6 +371,7 @@ namespace ProjectEulerCSharp.Utils
 
 			return int.Parse(d[pos].ToString());
 		}
+
 		public static int DigitAt(BigInteger i, int pos)
 		{
 			return int.Parse(i.ToString()[pos].ToString());
